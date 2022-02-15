@@ -106,7 +106,7 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
  * @param {Class<T>}   klass Class to attach globalArgs to
  * @param {SchemaArgs} args  Joi schema or schema function to attach to class
  */
-function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
+export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
   const metadata = getFieldsMetadata(klass.prototype);
   const classDescription = metadata.get(klass) || {};
 
@@ -121,7 +121,7 @@ function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
  * @param {Class<T>}          klass   Class to attach validations options to
  * @param {ValidationOptions} options Validations options to attach to class
  */
-function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
+export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
   const metadata = getFieldsMetadata(klass.prototype);
   const classDescription = metadata.get(klass) || {};
 
@@ -215,16 +215,5 @@ export function CustomSchema<T extends object>(schema: SchemaArgs) {
     } else {
       setSchemaGlobals(target as Class<T>, schema);
     }
-  };
-}
-
-/**
- * Set class schema options, to be used when generating validations
- * @template T
- * @param {ValidationOptions} options Validation options
- */
-export function SchemaOptions<T>(options: ValidationOptions) {
-  return (target: Class<T>) => {
-    setSchemaOptions(target, options);
   };
 }

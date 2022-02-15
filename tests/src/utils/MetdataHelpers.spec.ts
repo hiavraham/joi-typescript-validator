@@ -1,9 +1,9 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, Email, MaxLength, MinLength, SchemaOptions } from "../../../src";
+import { CustomSchema, Email, MaxLength, MinLength } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
-import { any, date, number } from "../../../src/decorators";
+import { any, date, klass, number } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -159,7 +159,7 @@ describe("getOptions function", function () {
       public id: number;
     }
 
-    @SchemaOptions({ allowUnknown: true })
+    @klass.schemaOptions({ allowUnknown: true })
     class User {
       @Email()
       public email: string;
@@ -175,7 +175,7 @@ describe("getOptions function", function () {
   });
 
   describe("inheritance", function () {
-    @SchemaOptions({ allowUnknown: true })
+    @klass.schemaOptions({ allowUnknown: true })
     class Base {
       @any.required()
       public id: number;
@@ -207,7 +207,7 @@ describe("getGlobalArgs function", function () {
       public id: number;
     }
 
-    @CustomSchema(func)
+    @klass.customSchema(func)
     class User {
       @Email()
       public email: string;
@@ -225,7 +225,7 @@ describe("getGlobalArgs function", function () {
   describe("inheritance", function () {
     const func = (j: Joi.Schema) => j.allow("");
 
-    @CustomSchema(func)
+    @klass.customSchema(func)
     class Base {
       @any.required()
       public id: number;

@@ -1,7 +1,7 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, Email, MinLength, SchemaOptions } from "../../../src";
+import { CustomSchema, Email } from "../../../src";
 import { any } from "../../../src/decorators";
 
 describe("any attribute decorators", function () {
@@ -230,41 +230,6 @@ describe("any attribute decorators", function () {
   });
 
   describe("@CustomSchema decorator", function () {
-    describe("class decorator", function () {
-      describe("Joi schema to override class schema", function () {
-        @CustomSchema(Joi.object({ username: Joi.string().alphanum() }))
-        class User {
-          @MinLength(3)
-          public name: string;
-
-          @Email()
-          public email: string;
-
-          public username: string;
-        }
-
-        it("should pass when none of the attribute decorator constraints are met", () => {
-          const user = new User();
-
-          expect(user).to.be.valid;
-        });
-
-        it("should pass when decorator constraints are met", () => {
-          const user = new User();
-
-          user.username = "jane";
-          expect(user).to.be.valid;
-        });
-
-        it("should error when decorator constraints are not met", () => {
-          const user = new User();
-
-          user.username = "####";
-          expect(user).to.not.be.valid;
-        });
-      });
-    });
-
     describe("attribute decorator", function () {
       describe("Joi schema to override attribute schema", function () {
         class User {
@@ -302,23 +267,6 @@ describe("any attribute decorators", function () {
           expect(user).to.be.valid;
         });
       });
-    });
-  });
-
-  describe("@SchemaOptions decorator", function () {
-    @SchemaOptions({ allowUnknown: true })
-    class User {
-      @any.optional()
-      public id: number;
-
-      public name: string;
-    }
-
-    it("should pass when object complies with Joi validation options passed to decorator", () => {
-      const user = new User();
-
-      user.name = "Jane";
-      expect(user).to.be.valid;
     });
   });
 });
