@@ -1,7 +1,7 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, Email, MaxLength, MinLength } from "../../../src";
+import { Email, MaxLength, MinLength } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
 import { any, date, klass, number } from "../../../src/decorators";
 
@@ -22,7 +22,7 @@ describe("getMetadata function", function () {
       public id: string;
 
       @any.required()
-      @CustomSchema(allowEmptyFunc)
+      @any.customSchema(allowEmptyFunc)
       public name: string;
 
       @any.optional()

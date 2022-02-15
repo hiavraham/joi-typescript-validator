@@ -201,19 +201,3 @@ export function Email<T extends object>(isEnabled = true) {
     setFieldDescription(target, propertyKey, description);
   };
 }
-
-/**
- * Constrain field or entire class fields by the Joi schema or schema function passed
- * @template T
- * @param {SchemaArgs} schema Joi schema or schema fuction, by which, to constrain field or class
- */
-export function CustomSchema<T extends object>(schema: SchemaArgs) {
-  return (target: T, propertyKey?: string) => {
-    if (propertyKey) {
-      const description = { customSchema: schema };
-      setFieldDescription(target, propertyKey, description);
-    } else {
-      setSchemaGlobals(target as Class<T>, schema);
-    }
-  };
-}

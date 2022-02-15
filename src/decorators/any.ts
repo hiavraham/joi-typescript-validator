@@ -1,4 +1,4 @@
-import { setFieldDescription } from "..";
+import { SchemaArgs, setFieldDescription } from "..";
 
 /**
  * Mark field value as required
@@ -42,6 +42,18 @@ export function nullable<T extends object>(isEnabled = true) {
 export function allow<T extends object>(...args: unknown[]) {
   return (target: T, propertyKey: string) => {
     const description = { options: args };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
+ * Constrain field by the Joi schema or schema function passed
+ * @template T
+ * @param {SchemaArgs} schema Joi schema or schema fuction, by which, to constrain field
+ */
+export function customSchema<T extends object>(schema: SchemaArgs) {
+  return (target: T, propertyKey: string) => {
+    const description = { customSchema: schema };
     setFieldDescription(target, propertyKey, description);
   };
 }
