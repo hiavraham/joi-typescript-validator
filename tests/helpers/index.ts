@@ -1,3 +1,3 @@
-import "./Valid";
+import "./valid";
 
 export { expect } from "chai";
