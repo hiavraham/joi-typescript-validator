@@ -1,8 +1,9 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, DateString, Email, Max, MaxLength, Min, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
+import { CustomSchema, DateString, Email, MaxLength, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
+import { number } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -25,8 +26,8 @@ describe("getMetadata function", function () {
       public name: string;
 
       @Optional()
-      @Max(50)
-      @Min({ value: 0, exclude: true })
+      @number.max(50)
+      @number.min({ value: 0, exclude: true })
       public rank: number;
 
       @ValidOptions(RoleNames.Admin, RoleNames.Moderator)

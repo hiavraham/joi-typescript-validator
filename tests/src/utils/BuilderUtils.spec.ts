@@ -1,7 +1,8 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { Email, getSchemaDescription, Max, MaxLength, Min, MinLength, Optional, Required } from "../../../src";
+import { Email, getSchemaDescription, MaxLength, MinLength, Optional, Required } from "../../../src";
+import { number } from "../../../src/decorators";
 
 
 class User {
@@ -11,8 +12,8 @@ class User {
   public id: string;
 
   @Optional()
-  @Max(50)
-  @Min(0)
+  @number.max(50)
+  @number.min(0)
   public rank: number;
 
   @Optional()

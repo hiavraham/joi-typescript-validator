@@ -86,7 +86,7 @@ export type TreeMetadata = Map<unknown, ClassDescription>;
  * @param {string}           propertyKey Field key to identify the field, for which, to set the description and design type
  * @param {FieldDescription} description Field description metadata to attach to class prototype
  */
-function setFieldDescription<T extends object>(target: T, propertyKey: string, description: FieldDescription) {
+export function setFieldDescription<T extends object>(target: T, propertyKey: string, description: FieldDescription) {
   const designType = Reflect.getMetadata("design:type", target, propertyKey) as Class<unknown>;
   const metadata = getFieldsMetadata(target);
   const classDescription = metadata.get(target.constructor) || {};
@@ -184,58 +184,6 @@ export function Nullable<T extends object>(isEnabled = true) {
 export function ItemType<T extends object, I>(type: Class<I>) {
   return (target: T, propertyKey: string) => {
     const description = { typeInfo: type };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Constrain number field to be less than or equal to a certain value
- * @template T
- * @param {Threshold | number} value Value, by which, to constrain the field to be less than or equal to
- */
-export function Max<T extends object>(value: Threshold | number) {
-  const maxValue = typeof (value) === "number" ? { value } : value;
-
-  return (target: T, propertyKey: string) => {
-    const description = { maxValue };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Constrain number field to be greater than or equal to a certain value
- * @template T
- * @param {Threshold | number} value Value, by which, to constrain the field to be greater than or equal to
- */
-export function Min<T extends object>(value: Threshold | number) {
-  const minValue = typeof (value) === "number" ? { value } : value;
-
-  return (target: T, propertyKey: string) => {
-    const description = { minValue };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Constrain number field to be a positive number (greater than 0)
- * @template T
- * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
- */
-export function Positive<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
-    const description = { positive: isEnabled };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Constrain number field to be a negative number (less than 0)
- * @template T
- * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
- */
-export function Negative<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
-    const description = { negative: isEnabled };
     setFieldDescription(target, propertyKey, description);
   };
 }

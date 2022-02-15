@@ -1,11 +1,11 @@
 import { expect } from "../../helpers";
-import { Max, Min, Negative, Positive } from "../../../src";
+import { number } from "../../../src/decorators";
 
-describe("Number attribute decorators", function () {
-  describe("@Min decorator", function () {
+describe("number attribute decorators", function () {
+  describe("@number.min decorator", function () {
     describe("inclusive case", function () {
       class User {
-        @Min(3)
+        @number.min(3)
         public code: number;
       }
 
@@ -29,7 +29,7 @@ describe("Number attribute decorators", function () {
 
     describe("exclusive case", function () {
       class User {
-        @Min({ value: 3, exclude: true })
+        @number.min({ value: 3, exclude: true })
         public code: number;
       }
 
@@ -52,10 +52,10 @@ describe("Number attribute decorators", function () {
     });
   });
 
-  describe("@Max decorator", function () {
+  describe("@number.max decorator", function () {
     describe("inclusive case", function () {
       class User {
-        @Max(3)
+        @number.max(3)
         public code: number;
       }
 
@@ -79,7 +79,7 @@ describe("Number attribute decorators", function () {
 
     describe("exclusive case", function () {
       class User {
-        @Max({ value: 3, exclude: true })
+        @number.max({ value: 3, exclude: true })
         public code: number;
       }
 
@@ -102,10 +102,10 @@ describe("Number attribute decorators", function () {
     });
   });
 
-  describe("@Positive decorator", function () {
+  describe("@number.positive decorator", function () {
     describe("same class", function () {
       class User {
-        @Positive()
+        @number.positive()
         public code: number;
       }
 
@@ -129,12 +129,12 @@ describe("Number attribute decorators", function () {
 
     describe("inheritance", function () {
       class Base {
-        @Positive()
+        @number.positive()
         public code: number;
       }
 
       class User extends Base {
-        @Positive(false)
+        @number.positive(false)
         public code: number;
       }
 
@@ -150,10 +150,10 @@ describe("Number attribute decorators", function () {
     });
   });
 
-  describe("@Negative decorator", function () {
+  describe("@number.negative decorator", function () {
     describe("same class", function () {
       class User {
-        @Negative()
+        @number.negative()
         public code: number;
       }
 
@@ -177,12 +177,12 @@ describe("Number attribute decorators", function () {
 
     describe("inheritance", function () {
       class Base {
-        @Negative()
+        @number.negative()
         public code: number;
       }
 
       class User extends Base {
-        @Negative(false)
+        @number.negative(false)
         public code: number;
       }
 
