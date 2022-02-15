@@ -1,9 +1,8 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { MaxLength } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
-import { any, date, klass, number, string } from "../../../src/decorators";
+import { any, array, date, klass, number, string } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -39,7 +38,7 @@ describe("getMetadata function", function () {
 
       @any.optional()
       @any.nullable()
-      @MaxLength(5)
+      @array.maxLength(5)
       public favoriteColors: string[] | null;
 
       @any.required()
