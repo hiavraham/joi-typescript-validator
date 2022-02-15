@@ -1,5 +1,5 @@
 import { expect } from "../../helpers";
-import { DateString, Email, MaxLength, MinLength, NotEmpty } from "../../../src";
+import { Email, MaxLength, MinLength, NotEmpty } from "../../../src";
 
 describe("String attribute type decorators", function () {
   describe("@Email decorator", function () {
@@ -89,50 +89,6 @@ describe("String attribute type decorators", function () {
 
       user.tag = "SEC-555";
       expect(user).to.not.be.valid;
-    });
-  });
-
-  describe("@DateString decorator", function () {
-    describe("default format", function () {
-      class User {
-        @DateString()
-        public createdAt: string;
-      }
-
-      it("should pass when field value is of default (YYYY-MM-DD) date format", () => {
-        const user = new User();
-
-        user.createdAt = "1913-12-20";
-        expect(user).to.be.valid;
-      });
-
-      it("should error when field value is not of default (YYYY-MM-DD) date format", () => {
-        const user = new User();
-
-        user.createdAt = "1913-20-12";
-        expect(user).to.not.be.valid;
-      });
-    });
-
-    describe("custom format", function () {
-      class User {
-        @DateString("YYYY-DD-MM")
-        public createdAt: string;
-      }
-
-      it("should pass when field value is of format passed to the decorator", () => {
-        const user = new User();
-
-        user.createdAt = "1913-20-12";
-        expect(user).to.be.valid;
-      });
-
-      it("should error when field value is not of format passed to the decorator", () => {
-        const user = new User();
-
-        user.createdAt = "1913-12-20";
-        expect(user).to.not.be.valid;
-      });
     });
   });
 });

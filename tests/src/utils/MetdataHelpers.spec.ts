@@ -1,9 +1,9 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, DateString, Email, MaxLength, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
+import { CustomSchema, Email, MaxLength, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
-import { number } from "../../../src/decorators";
+import { date, number } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -43,7 +43,7 @@ describe("getMetadata function", function () {
       public favoriteColors: string[] | null;
 
       @Required()
-      @DateString()
+      @date.format()
       public licensedAt: string;
 
       @Optional()
