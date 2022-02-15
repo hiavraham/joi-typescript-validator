@@ -1,15 +1,16 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, Email, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
+import { CustomSchema, Email, MinLength, SchemaOptions } from "../../../src";
+import { any } from "../../../src/decorators";
 
-describe("Base decorators", function () {
-  describe("@Required decorator", function () {
-    describe("@Required overrides @Optional", function () {
+describe("any attribute decorators", function () {
+  describe("@any.required decorator", function () {
+    describe("required overrides optional", function () {
       describe("same class", function () {
         class User {
-          @Required()
-          @Optional()
+          @any.required()
+          @any.optional()
           public name: string;
         }
 
@@ -32,12 +33,12 @@ describe("Base decorators", function () {
 
       describe("inheritance", function () {
         class Base {
-          @Optional()
+          @any.optional()
           public name: string;
         }
 
         class User extends Base {
-          @Required()
+          @any.required()
           public name: string;
         }
 
@@ -61,7 +62,7 @@ describe("Base decorators", function () {
 
     describe("nullable type", function () {
       class User {
-        @Required()
+        @any.required()
         public name: string | null;
       }
 
@@ -87,7 +88,7 @@ describe("Base decorators", function () {
 
     describe("non-nullable string type", function () {
       class User {
-        @Required()
+        @any.required()
         public name: string;
       }
 
@@ -109,12 +110,12 @@ describe("Base decorators", function () {
     });
   });
 
-  describe("@Optional decorator", function () {
-    describe("@Optional overrides @Required", function () {
+  describe("@any.optional decorator", function () {
+    describe("optional overrides required", function () {
       describe("same class", function () {
         class User {
-          @Optional()
-          @Required()
+          @any.optional()
+          @any.required()
           public name: string;
         }
 
@@ -127,12 +128,12 @@ describe("Base decorators", function () {
 
       describe("inheritance", function () {
         class Base {
-          @Required()
+          @any.required()
           public name: string;
         }
 
         class User extends Base {
-          @Optional()
+          @any.optional()
           public name: string;
         }
 
@@ -145,14 +146,14 @@ describe("Base decorators", function () {
     });
   });
 
-  describe("@Nullable decorator", function () {
+  describe("@any.nullable decorator", function () {
     describe("same class", function () {
       class User {
-        @Required()
+        @any.required()
         public id: number;
 
-        @Required()
-        @Nullable()
+        @any.required()
+        @any.nullable()
         public name: string | null;
       }
 
@@ -175,13 +176,13 @@ describe("Base decorators", function () {
 
     describe("inheritance", function () {
       class Base {
-        @Nullable()
+        @any.nullable()
         public id: number;
       }
 
       class User extends Base {
-        @Required()
-        @Nullable(false)
+        @any.required()
+        @any.nullable(false)
         public id: number;
       }
 
@@ -201,7 +202,7 @@ describe("Base decorators", function () {
     });
   });
 
-  describe("@ValidOptions decorator", function () {
+  describe("@any.allow decorator", function () {
     enum RoleNames {
       Admin,
       Moderator,
@@ -209,7 +210,7 @@ describe("Base decorators", function () {
     }
 
     class User {
-      @ValidOptions(RoleNames.Admin, RoleNames.Moderator)
+      @any.allow(RoleNames.Admin, RoleNames.Moderator)
       public role: RoleNames;
     }
 
@@ -289,7 +290,7 @@ describe("Base decorators", function () {
 
       describe("Joi schema function to extend attribute schema", function () {
         class User {
-          @Required()
+          @any.required()
           @CustomSchema((j) => j.allow(""))
           public name: string;
         }
@@ -307,7 +308,7 @@ describe("Base decorators", function () {
   describe("@SchemaOptions decorator", function () {
     @SchemaOptions({ allowUnknown: true })
     class User {
-      @Optional()
+      @any.optional()
       public id: number;
 
       public name: string;

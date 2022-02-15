@@ -1,9 +1,9 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { CustomSchema, Email, MaxLength, MinLength, Nullable, Optional, Required, SchemaOptions, ValidOptions } from "../../../src";
+import { CustomSchema, Email, MaxLength, MinLength, SchemaOptions } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
-import { date, number } from "../../../src/decorators";
+import { any, date, number } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -16,37 +16,37 @@ describe("getMetadata function", function () {
     const allowEmptyFunc = (j: Joi.Schema) => j.allow("");
 
     class User {
-      @Required()
+      @any.required()
       @MaxLength(50)
       @MinLength(10)
       public id: string;
 
-      @Required()
+      @any.required()
       @CustomSchema(allowEmptyFunc)
       public name: string;
 
-      @Optional()
+      @any.optional()
       @number.max(50)
       @number.min({ value: 0, exclude: true })
       public rank: number;
 
-      @ValidOptions(RoleNames.Admin, RoleNames.Moderator)
+      @any.allow(RoleNames.Admin, RoleNames.Moderator)
       public role: RoleNames;
 
-      @Optional()
+      @any.optional()
       @Email()
       public email: string;
 
-      @Optional()
-      @Nullable()
+      @any.optional()
+      @any.nullable()
       @MaxLength(5)
       public favoriteColors: string[] | null;
 
-      @Required()
+      @any.required()
       @date.format()
       public licensedAt: string;
 
-      @Optional()
+      @any.optional()
       public createdAt: Date;
     }
 
@@ -120,18 +120,18 @@ describe("getMetadata function", function () {
 
   describe("inheritance", function () {
     class Base {
-      @Required()
+      @any.required()
       public id: string;
     }
 
     class User extends Base {
-      @Optional()
+      @any.optional()
       @Email()
       public email: string;
     }
 
     class Contact extends User {
-      @Required()
+      @any.required()
       public phoneNumber: number;
     }
 
@@ -155,7 +155,7 @@ describe("getMetadata function", function () {
 describe("getOptions function", function () {
   describe("same class", function () {
     class Base {
-      @Required()
+      @any.required()
       public id: number;
     }
 
@@ -177,14 +177,14 @@ describe("getOptions function", function () {
   describe("inheritance", function () {
     @SchemaOptions({ allowUnknown: true })
     class Base {
-      @Required()
+      @any.required()
       public id: number;
     }
 
     class User extends Base {}
 
     class Post extends Base {
-      @Required()
+      @any.required()
       public title: string;
     }
 
@@ -203,7 +203,7 @@ describe("getGlobalArgs function", function () {
     const func = (j: Joi.Schema) => j.allow("");
 
     class Base {
-      @Required()
+      @any.required()
       public id: number;
     }
 
@@ -227,14 +227,14 @@ describe("getGlobalArgs function", function () {
 
     @CustomSchema(func)
     class Base {
-      @Required()
+      @any.required()
       public id: number;
     }
 
     class User extends Base {}
 
     class Post extends Base {
-      @Required()
+      @any.required()
       public title: string;
     }
 

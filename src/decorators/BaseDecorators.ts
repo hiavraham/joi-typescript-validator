@@ -142,40 +142,6 @@ function getFieldsMetadata<T>(target: T) {
 }
 
 /**
- * Mark field value as required
- * @template T
- */
-export function Required<T extends object>() {
-  return (target: T, propertyKey: string) => {
-    const description = { required: true };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Mark field value as optional
- * @template T
- */
-export function Optional<T extends object>() {
-  return (target: T, propertyKey: string) => {
-    const description = { required: false };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
- * Mark field value as nullable
- * @template T
- * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
- */
-export function Nullable<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
-    const description = { nullable: isEnabled };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
  * Overwrite automatic field type with the given value
  * @template T
  * @template I
@@ -220,17 +186,6 @@ export function MaxLength<T extends object>(value: number) {
 export function MinLength<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { minLength: value };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-/**
- * Constrain field to only the allowed values passed
- * @template T
- * @param {unknown[]} args Values, by which, to constrain the field
- */
-export function ValidOptions<T extends object>(...args: unknown[]) {
-  return (target: T, propertyKey: string) => {
-    const description = { options: args };
     setFieldDescription(target, propertyKey, description);
   };
 }
