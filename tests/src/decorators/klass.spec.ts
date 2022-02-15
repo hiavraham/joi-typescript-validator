@@ -1,18 +1,17 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { any, klass } from "../../../src/decorators";
-import { Email, MinLength } from "../../../src";
+import { any, klass, string } from "../../../src/decorators";
 
 describe("class attribute decorators", function () {
   describe("@klass.customSchema decorator", function () {
     describe("Joi schema to override class schema", function () {
       @klass.customSchema(Joi.object({ username: Joi.string().alphanum() }))
       class User {
-        @MinLength(3)
+        @string.minLength(3)
         public name: string;
 
-        @Email()
+        @string.email()
         public email: string;
 
         public username: string;

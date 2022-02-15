@@ -189,15 +189,3 @@ export function MinLength<T extends object>(value: number) {
     setFieldDescription(target, propertyKey, description);
   };
 }
-
-/**
- * Constrain field value to be of email format
- * @template T
- * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
- */
-export function Email<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
-    const description = { email: isEnabled };
-    setFieldDescription(target, propertyKey, description);
-  };
-}

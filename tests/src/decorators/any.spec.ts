@@ -1,8 +1,7 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { Email } from "../../../src";
-import { any } from "../../../src/decorators";
+import { any, string } from "../../../src/decorators";
 
 describe("any attribute decorators", function () {
   describe("@any.required decorator", function () {
@@ -233,7 +232,7 @@ describe("any attribute decorators", function () {
     describe("attribute decorator", function () {
       describe("Joi schema to override attribute schema", function () {
         class User {
-          @Email()
+          @string.email()
           @any.customSchema(Joi.string().uri())
           public url: string;
         }

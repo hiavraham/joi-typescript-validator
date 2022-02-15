@@ -1,9 +1,9 @@
 import { expect } from "../../helpers";
 
 import Joi from "joi";
-import { Email, MaxLength, MinLength } from "../../../src";
+import { MaxLength } from "../../../src";
 import { getGlobalArgs, getMetadata, getOptions } from "../../../src/utils/MetadataHelpers";
-import { any, date, klass, number } from "../../../src/decorators";
+import { any, date, klass, number, string } from "../../../src/decorators";
 
 describe("getMetadata function", function () {
   describe("same class", function () {
@@ -17,8 +17,8 @@ describe("getMetadata function", function () {
 
     class User {
       @any.required()
-      @MaxLength(50)
-      @MinLength(10)
+      @string.maxLength(50)
+      @string.minLength(10)
       public id: string;
 
       @any.required()
@@ -34,7 +34,7 @@ describe("getMetadata function", function () {
       public role: RoleNames;
 
       @any.optional()
-      @Email()
+      @string.email()
       public email: string;
 
       @any.optional()
@@ -126,7 +126,7 @@ describe("getMetadata function", function () {
 
     class User extends Base {
       @any.optional()
-      @Email()
+      @string.email()
       public email: string;
     }
 
@@ -161,7 +161,7 @@ describe("getOptions function", function () {
 
     @klass.schemaOptions({ allowUnknown: true })
     class User {
-      @Email()
+      @string.email()
       public email: string;
     }
 
@@ -209,7 +209,7 @@ describe("getGlobalArgs function", function () {
 
     @klass.customSchema(func)
     class User {
-      @Email()
+      @string.email()
       public email: string;
     }
 
