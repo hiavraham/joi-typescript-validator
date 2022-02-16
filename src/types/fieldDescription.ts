@@ -99,4 +99,9 @@ export interface FieldDescription {
    * Integer (no floating point) constraint for number fields
    */
   integer?: boolean;
+
+  /**
+   * Maximum number of decimal places constraint for number fields
+   */
+  precision?: number;
 }

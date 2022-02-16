@@ -25,6 +25,18 @@ export function integer<T extends object>(isEnabled = true) {
 }
 
 /**
+ * Constrain number field to have maximum number of decimal places
+ * @template T
+ * @param {number} precision Maximum number of decimal places, to constraint the field to
+ */
+export function precision<T extends object>(precision: number) {
+  return (target: T, propertyKey: string) => {
+    const description = { precision };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain number field to be less than or equal to a certain value
  * @template T
  * @param {Threshold | number} value Value, by which, to constrain the field to be less than or equal to

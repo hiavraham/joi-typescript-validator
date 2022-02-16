@@ -70,6 +70,10 @@ function buildJoiNumber(description: FieldDescription) {
     schema = schema.integer();
   }
 
+  if (description.precision !== undefined) {
+    schema = schema.precision(description.precision);
+  }
+
   if (description.minValue) {
     schema = schema.min(description.minValue.value);
 

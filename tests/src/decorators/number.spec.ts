@@ -1,5 +1,5 @@
 import { expect } from "../../helpers";
-import { number } from "../../../src/decorators";
+import { klass, number } from "../../../src/decorators";
 
 describe("number attribute decorators", function () {
   describe("@number.unsafe decorator", function () {
@@ -83,6 +83,57 @@ describe("number attribute decorators", function () {
         expect(user).to.be.valid;
 
         user.code = -1.1;
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
+  describe("@number.precision decorator", function () {
+    describe("with convert validation option passed to class schema options", function () {
+      @klass.schemaOptions({ convert: false })
+      class User {
+        @number.precision(3)
+        public code: number;
+      }
+
+      it("should pass when number of decimal places of field value is less than or equal to the value passed to the decorator", () => {
+        const user = new User();
+
+        user.code = 3;
+        expect(user).to.be.valid;
+
+        user.code = 2.223;
+        expect(user).to.be.valid;
+      });
+
+      it("should error when number of decimal places of field value greater than the value passed to the decorator", () => {
+        const user = new User();
+
+        user.code = 4.4444;
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("without convert validation option passed to class schema options", function () {
+      class User {
+        @number.precision(3)
+        public code: number;
+      }
+
+      it("should pass when number of decimal places of field value is less than or equal to the value passed to the decorator", () => {
+        const user = new User();
+
+        user.code = 3;
+        expect(user).to.be.valid;
+
+        user.code = 2.223;
+        expect(user).to.be.valid;
+      });
+
+      it("should pass when number of decimal places of field value greater than the value passed to the decorator", () => {
+        const user = new User();
+
+        user.code = 4.4444;
         expect(user).to.be.valid;
       });
     });
