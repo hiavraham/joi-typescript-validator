@@ -74,6 +74,10 @@ function buildJoiNumber(description: FieldDescription) {
     schema = schema.precision(description.precision);
   }
 
+  if (description.port) {
+    schema = schema.port();
+  }
+
   if (description.minValue) {
     schema = schema.min(description.minValue.value);
 

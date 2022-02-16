@@ -106,6 +106,11 @@ export interface FieldDescription {
   precision?: number;
 
   /**
+   * TCP port (between 0 and 65535) constraint for number fields
+   */
+  port?: boolean;
+
+  /**
    * Multiple of base constraint for number fields
    */
   multipleOf?: number;

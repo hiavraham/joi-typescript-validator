@@ -139,6 +139,54 @@ describe("number attribute decorators", function () {
     });
   });
 
+  describe("@number.port decorator", function () {
+    describe("same class", function () {
+      class User {
+        @number.port()
+        public code: number;
+      }
+
+      it("should pass when field value is a TCP port", () => {
+        const user = new User();
+
+        user.code = 65535;
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not a TCP port", () => {
+        const user = new User();
+
+        user.code = 655359;
+        expect(user).to.not.be.valid;
+
+        user.code = -1;
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @number.port()
+        public code: number;
+      }
+
+      class User extends Base {
+        @number.port(false)
+        public code: number;
+      }
+
+      it("should pass when field value is not a TCP port and false is passed to decorator", () => {
+        const user = new User();
+
+        user.code = 655359;
+        expect(user).to.be.valid;
+
+        user.code = -1;
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@number.min decorator", function () {
     describe("inclusive case", function () {
       class User {

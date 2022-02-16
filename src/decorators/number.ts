@@ -37,6 +37,18 @@ export function precision<T extends object>(precision: number) {
 }
 
 /**
+ * Constrain number field to be a TCP port (between 0 and 65535)
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function port<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { port: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain number field to be less than or equal to a certain value
  * @template T
  * @param {Threshold | number} value Value, by which, to constrain the field to be less than or equal to
