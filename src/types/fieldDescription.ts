@@ -104,4 +104,9 @@ export interface FieldDescription {
    * Maximum number of decimal places constraint for number fields
    */
   precision?: number;
+
+  /**
+   * Multiple of base constraint for number fields
+   */
+  multipleOf?: number;
 }

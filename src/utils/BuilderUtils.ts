@@ -98,6 +98,10 @@ function buildJoiNumber(description: FieldDescription) {
     schema = schema.negative();
   }
 
+  if (description.multipleOf !== undefined) {
+    schema = schema.multiple(description.multipleOf);
+  }
+
   return schema;
 }
 

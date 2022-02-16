@@ -331,4 +331,31 @@ describe("number attribute decorators", function () {
       });
     });
   });
+
+  describe("@number.positive decorator", function () {
+    class User {
+      @number.multipleOf(3)
+      public code: number;
+    }
+
+    it("should pass when field field value is equal to the base passed to decorator", () => {
+      const user = new User();
+
+      user.code = 3;
+      expect(user).to.be.valid;
+
+      user.code = -6;
+      expect(user).to.be.valid;
+    });
+
+    it("should error when field value is not a multiple of the base passed to decorator", () => {
+      const user = new User();
+
+      user.code = 5;
+      expect(user).to.not.be.valid;
+
+      user.code = -5;
+      expect(user).to.not.be.valid;
+    });
+  });
 });

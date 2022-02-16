@@ -87,3 +87,15 @@ export function negative<T extends object>(isEnabled = true) {
     setFieldDescription(target, propertyKey, description);
   };
 }
+
+/**
+ * Constrain number field to be a multiple of a base
+ * @template T
+ * @param {number} base Value, by which, to constraint the field to be a multiple of
+ */
+export function multipleOf<T extends object>(base: number) {
+  return (target: T, propertyKey: string) => {
+    const description = { multipleOf: base };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
