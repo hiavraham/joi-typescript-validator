@@ -2,8 +2,7 @@ import BaseJoi from "joi";
 import JoiDateFactory from "@joi/date";
 
 import { getMetadata, getOptions, getGlobalArgs } from "./MetadataHelpers";
-import { FieldDescription } from "../decorators/FieldDescription";
-import { Class } from "../types";
+import { Class, FieldDescription } from "../types";
 
 /**
  * Joi instance customized with JoiDateFactory extension

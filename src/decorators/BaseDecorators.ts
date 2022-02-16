@@ -1,8 +1,7 @@
 import "reflect-metadata";
 import Joi, { ValidationOptions } from "joi";
 
-import { Class } from "../types";
-import { FieldDescription } from "./FieldDescription";
+import { Class, FieldDescription } from "../types";
 
 /**
  * Joi Schema or Joi SchemaFunction

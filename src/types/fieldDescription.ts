@@ -1,5 +1,5 @@
 import { Class } from "../types";
-import { ConditionSchema, SchemaArgs, Threshold } from "./BaseDecorators";
+import { ConditionSchema, SchemaArgs, Threshold } from "../decorators/BaseDecorators";
 
 /**
  * Metadata of annotated field
