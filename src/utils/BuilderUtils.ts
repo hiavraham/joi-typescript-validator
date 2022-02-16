@@ -62,6 +62,14 @@ function buildJoiDate(description: FieldDescription) {
 function buildJoiNumber(description: FieldDescription) {
   let schema = Joi.number();
 
+  if (description.unsafe) {
+    schema = schema.unsafe();
+  }
+
+  if (description.integer) {
+    schema = schema.integer();
+  }
+
   if (description.minValue) {
     schema = schema.min(description.minValue.value);
 
@@ -84,10 +92,6 @@ function buildJoiNumber(description: FieldDescription) {
 
   if (description.negative) {
     schema = schema.negative();
-  }
-
-  if (description.integer) {
-    schema = schema.integer();
   }
 
   return schema;

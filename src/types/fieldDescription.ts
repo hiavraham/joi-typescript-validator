@@ -91,6 +91,11 @@ export interface FieldDescription {
   dateStringFormat?: string;
 
   /**
+   * Allow unsafe (JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER)) constraint
+   */
+  unsafe?: boolean;
+
+  /**
    * Integer (no floating point) constraint for number fields
    */
   integer?: boolean;

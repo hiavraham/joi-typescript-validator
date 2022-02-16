@@ -2,6 +2,44 @@ import { expect } from "../../helpers";
 import { number } from "../../../src/decorators";
 
 describe("number attribute decorators", function () {
+  describe("@number.unsafe decorator", function () {
+    describe("same class", function () {
+      class User {
+        @number.unsafe()
+        public code: number;
+      }
+
+      it("should pass when field value is not an unsafe number", () => {
+        const user = new User();
+
+        user.code = Number("90071992547409924");
+        expect(user).to.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @number.unsafe()
+        public code: number;
+      }
+
+      class User extends Base {
+        @number.unsafe(false)
+        public code: number;
+      }
+
+      it("should error when field value is an unsafe number and false is passed to decorator", () => {
+        const user = new User();
+
+        user.code = Number("90071992547409924");
+        expect(user).to.not.be.valid;
+
+        user.code = Number("-90071992547409924");
+        expect(user).to.not.be.valid;
+      });
+    });
+  });
+
   describe("@number.integer decorator", function () {
     describe("same class", function () {
       class User {

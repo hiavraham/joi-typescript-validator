@@ -1,6 +1,18 @@
 import { setFieldDescription, Threshold } from "..";
 
 /**
+ * Allow number field to be unsafe (out of JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER))
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function unsafe<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { unsafe: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain number field to be an integer (no floating point) number
  * @template T
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
