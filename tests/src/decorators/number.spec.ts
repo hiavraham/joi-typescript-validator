@@ -2,6 +2,54 @@ import { expect } from "../../helpers";
 import { number } from "../../../src/decorators";
 
 describe("number attribute decorators", function () {
+  describe("@number.integer decorator", function () {
+    describe("same class", function () {
+      class User {
+        @number.integer()
+        public code: number;
+      }
+
+      it("should pass when field value is not a floating point number", () => {
+        const user = new User();
+
+        user.code = 1;
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is a floating point number", () => {
+        const user = new User();
+
+        user.code = 0.1;
+        expect(user).to.not.be.valid;
+
+        user.code = -1.1;
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @number.integer()
+        public code: number;
+      }
+
+      class User extends Base {
+        @number.integer(false)
+        public code: number;
+      }
+
+      it("should pass when field value is a floating point number and false is passed to decorator", () => {
+        const user = new User();
+
+        user.code = 0.1;
+        expect(user).to.be.valid;
+
+        user.code = -1.1;
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@number.min decorator", function () {
     describe("inclusive case", function () {
       class User {

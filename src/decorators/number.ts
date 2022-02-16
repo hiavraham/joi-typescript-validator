@@ -1,6 +1,18 @@
 import { setFieldDescription, Threshold } from "..";
 
 /**
+ * Constrain number field to be an integer (no floating point) number
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function integer<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { integer: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain number field to be less than or equal to a certain value
  * @template T
  * @param {Threshold | number} value Value, by which, to constrain the field to be less than or equal to

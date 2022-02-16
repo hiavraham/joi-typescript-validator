@@ -86,6 +86,10 @@ function buildJoiNumber(description: FieldDescription) {
     schema = schema.negative();
   }
 
+  if (description.integer) {
+    schema = schema.integer();
+  }
+
   return schema;
 }
 

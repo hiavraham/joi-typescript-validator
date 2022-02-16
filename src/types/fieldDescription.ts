@@ -89,4 +89,9 @@ export interface FieldDescription {
    * Date format constraint
    */
   dateStringFormat?: string;
+
+  /**
+   * Integer (no floating point) constraint for number fields
+   */
+  integer?: boolean;
 }
