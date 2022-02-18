@@ -72,23 +72,44 @@ describe("string attribute decorators", function () {
   });
 
   describe("@string.email decorator", function () {
-    class User {
-      @string.email()
-      public email: string;
-    }
+    describe("same class", function () {
+      class User {
+        @string.email()
+        public email: string;
+      }
 
-    it("should pass when field value is of correct email format", () => {
-      const user = new User();
+      it("should pass when field value is of correct email format", () => {
+        const user = new User();
 
-      user.email = "hello@example.com";
-      expect(user).to.be.valid;
+        user.email = "hello@example.com";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not of correct email format", () => {
+        const user = new User();
+
+        user.email = "lorem";
+        expect(user).to.not.be.valid;
+      });
     });
 
-    it("should error when field value is not of correct email format", () => {
-      const user = new User();
+    describe("inheritance", function () {
+      class Base {
+        @string.email()
+        public email: string;
+      }
 
-      user.email = "lorem";
-      expect(user).to.not.be.valid;
+      class User extends Base {
+        @string.email(false)
+        public email: string;
+      }
+
+      it("should pass when field value is not of correct email format and false is passed to decorator", () => {
+        const user = new User();
+
+        user.email = "lorem";
+        expect(user).to.be.valid;
+      });
     });
   });
 });
