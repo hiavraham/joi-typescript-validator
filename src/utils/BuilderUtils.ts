@@ -55,6 +55,10 @@ function buildJoiDate(description: FieldDescription) {
     schema = schema.max(description.maxDate);
   }
 
+  if (description.minDate) {
+    schema = schema.min(description.minDate);
+  }
+
   return schema;
 }
 

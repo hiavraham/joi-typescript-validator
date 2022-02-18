@@ -24,3 +24,15 @@ export function max<T extends object>(value: string | number | Date | Joi.Refere
     setFieldDescription(target, propertyKey, description);
   };
 }
+
+/**
+ * Constrain date or string field to be greater than or equal to a certain value
+ * @template T
+ * @param {string} value Value, by which, to constrain the field to be greater than or equal to
+ */
+export function min<T extends object>(value: string | number | Date | Joi.Reference) {
+  return (target: T, propertyKey: string) => {
+    const description = { dateString: true, minDate: value };
+    setFieldDescription(target, propertyKey, description);
+  };
+}

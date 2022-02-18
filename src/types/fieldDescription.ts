@@ -97,6 +97,11 @@ export interface FieldDescription {
   maxDate?: string | number | Date | Joi.Reference;
 
   /**
+   * Min date constraint
+   */
+  minDate?: string | number | Date | Joi.Reference;
+
+  /**
    * Allow unsafe (JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER)) constraint
    */
   unsafe?: boolean;
