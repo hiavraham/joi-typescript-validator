@@ -87,6 +87,11 @@ export interface FieldDescription {
   dateString?: boolean;
 
   /**
+   * ISO 8601 date format constraint
+   */
+  iso?: boolean;
+
+  /**
    * Date format constraint
    */
   dateStringFormat?: string;

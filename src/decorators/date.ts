@@ -2,6 +2,18 @@ import Joi from "joi";
 import { setFieldDescription } from "..";
 
 /**
+ * Constrain date or string field to be of ISO 8601 date format
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function iso<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { dateString: true, iso: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain date or string field to be of a given format
  * @template T
  * @param {string} [format="YYYY-MM-DD"] Format, by which, to constrain the field

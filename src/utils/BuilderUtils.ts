@@ -47,6 +47,10 @@ function buildJoiString(description: FieldDescription) {
 function buildJoiDate(description: FieldDescription) {
   let schema = Joi.date();
 
+  if (description.iso) {
+    schema = schema.iso();
+  }
+
   if (description.dateStringFormat) {
     schema = schema.format(description.dateStringFormat);
   }
