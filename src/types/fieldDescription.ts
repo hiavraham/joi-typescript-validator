@@ -1,5 +1,6 @@
 import { Class } from "../types";
 import { ConditionSchema, SchemaArgs, Threshold } from "../decorators/BaseDecorators";
+import Joi from "joi";
 
 /**
  * Metadata of annotated field
@@ -89,6 +90,11 @@ export interface FieldDescription {
    * Date format constraint
    */
   dateStringFormat?: string;
+
+  /**
+   * Max date constraint
+   */
+  maxDate?: string | number | Date | Joi.Reference;
 
   /**
    * Allow unsafe (JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER)) constraint
