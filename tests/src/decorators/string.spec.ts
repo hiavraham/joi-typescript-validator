@@ -71,6 +71,48 @@ describe("string attribute decorators", function () {
     });
   });
 
+  describe("@string.alphanum decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.alphanum()
+        public email: string;
+      }
+
+      it("should pass when field value is alphanumeric", () => {
+        const user = new User();
+
+        user.email = "joi";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not alphanumeric", () => {
+        const user = new User();
+
+        user.email = "%####$";
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.alphanum()
+        public email: string;
+      }
+
+      class User extends Base {
+        @string.alphanum(false)
+        public email: string;
+      }
+
+      it("should pass when field value is not alphanumeric and false is passed to decorator", () => {
+        const user = new User();
+
+        user.email = "%####$";
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@string.email decorator", function () {
     describe("same class", function () {
       class User {

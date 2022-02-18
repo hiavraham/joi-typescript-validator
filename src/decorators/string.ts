@@ -13,6 +13,18 @@ export function notEmpty<T extends object>(isEnabled = true) {
 }
 
 /**
+ * Constrain string field to only contain alphanumeric characters (a-z, A-Z, and 0-9)
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function alphanum<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { alphanum: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain string field to have a maximum length
  * @template T
  * @param {number} value Value, by which, to constrain the maximum length

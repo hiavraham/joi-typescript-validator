@@ -67,6 +67,11 @@ export interface FieldDescription {
   email?: boolean;
 
   /**
+   * Alphanumeric characters for string fields
+   */
+  alphanum?: boolean;
+
+  /**
    * Length greater than 0 constraint for array or string fields
    */
   nonempty?: boolean;

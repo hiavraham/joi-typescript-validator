@@ -24,6 +24,10 @@ const savedSchemas = new Map<Class<unknown>, BaseJoi.Schema>();
 function buildJoiString(description: FieldDescription) {
   let schema = Joi.string();
 
+  if (description.alphanum) {
+    schema = schema.alphanum();
+  }
+
   if (description.minLength || description.nonempty) {
     schema = schema.min(Math.max(description.minLength || 0, 1));
   }
