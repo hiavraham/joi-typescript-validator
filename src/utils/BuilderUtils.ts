@@ -44,6 +44,10 @@ function buildJoiString(description: FieldDescription) {
     schema = schema.email();
   }
 
+  if (description.creditCard) {
+    schema = schema.creditCard();
+  }
+
   return schema;
 }
 

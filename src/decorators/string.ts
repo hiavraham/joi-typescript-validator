@@ -71,3 +71,15 @@ export function email<T extends object>(isEnabled = true) {
     setFieldDescription(target, propertyKey, description);
   };
 }
+
+/**
+ * Constrain field value to be a valid credit card number (using Luhn Algorithm)
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function creditCard<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { creditCard: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}

@@ -67,6 +67,11 @@ export interface FieldDescription {
   email?: boolean;
 
   /**
+   * Credit card format constraint for string fields
+   */
+  creditCard?: boolean;
+
+  /**
    * Alphanumeric characters for string fields
    */
   alphanum?: boolean;

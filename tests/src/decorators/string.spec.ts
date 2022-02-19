@@ -199,4 +199,58 @@ describe("string attribute decorators", function () {
       });
     });
   });
+
+  describe("@string.creditCard decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.creditCard()
+        public creditCard: string;
+      }
+
+      it("should pass when field value is a valid credit card number", () => {
+        const user = new User();
+
+        user.creditCard = "378734493671000";
+        expect(user).to.be.valid;
+
+        user.creditCard = "5610591081018250";
+        expect(user).to.be.valid;
+
+        user.creditCard = "5019717010103742";
+        expect(user).to.be.valid;
+
+        user.creditCard = "6011000990139424";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not a valid credit card number", () => {
+        const user = new User();
+
+        user.creditCard = "XXXXXXXXXXXXXXXX";
+        expect(user).to.not.be.valid;
+
+        user.creditCard = "4111111111111112";
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.creditCard()
+        public creditCard: string;
+      }
+
+      class User extends Base {
+        @string.creditCard(false)
+        public creditCard: string;
+      }
+
+      it("should pass when field value is not a valid credit card number and false is passed to decorator", () => {
+        const user = new User();
+
+        user.creditCard = "XXXXXXXXXXXXXXXX";
+        expect(user).to.be.valid;
+      });
+    });
+  });
 });
