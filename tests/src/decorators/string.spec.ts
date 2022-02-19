@@ -200,6 +200,48 @@ describe("string attribute decorators", function () {
     });
   });
 
+  describe("@string.isoDate decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.isoDate()
+        public createdAt: string;
+      }
+
+      it("should pass when field value is of ISO 8601 date format", () => {
+        const user = new User();
+
+        user.createdAt = new Date().toISOString();
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not of ISO 8601 date format", () => {
+        const user = new User();
+
+        user.createdAt = new Date().toDateString();
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.isoDate()
+        public createdAt: string;
+      }
+
+      class User extends Base {
+        @string.isoDate(false)
+        public createdAt: string;
+      }
+
+      it("should pass when field value is not of ISO 8601 date format and false is passed to decorator", () => {
+        const user = new User();
+
+        user.createdAt = new Date().toDateString();
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@string.creditCard decorator", function () {
     describe("same class", function () {
       class User {

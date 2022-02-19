@@ -67,6 +67,11 @@ export interface FieldDescription {
   email?: boolean;
 
   /**
+   * Valid ISO 8601 date format constraint for string fields
+   */
+  isoDate?: boolean;
+
+  /**
    * Credit card format constraint for string fields
    */
   creditCard?: boolean;
