@@ -72,6 +72,19 @@
         "argsIgnorePattern": "^_",
         "ignoreRestSiblings": true
       }
+    ],
+    "@typescript-eslint/type-annotation-spacing": [
+      "error",
+      {
+        "after": true,
+        "before": false,
+        "overrides": {
+          "arrow": {
+            "after": true,
+            "before": true
+          }
+        }
+      }
     ]
   }
 }
