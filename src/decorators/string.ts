@@ -25,6 +25,18 @@ export function alphanum<T extends object>(isEnabled = true) {
 }
 
 /**
+ * Constrain string field to only contain alphabetic and underscore characters (a-z, A-Z, 0-9, and underscore _)
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function token<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { token: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain string field to have a maximum length
  * @template T
  * @param {number} value Value, by which, to constrain the maximum length

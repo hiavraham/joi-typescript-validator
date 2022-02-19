@@ -113,6 +113,51 @@ describe("string attribute decorators", function () {
     });
   });
 
+  describe("@string.token decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.token()
+        public username: string;
+      }
+
+      it("should pass when field value contains only alphabetic and underscore characters", () => {
+        const user = new User();
+
+        user.username = "joi";
+        expect(user).to.be.valid;
+
+        user.username = "_joi";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value does not contain only alphabetic and underscore characters", () => {
+        const user = new User();
+
+        user.username = "%####$";
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.token()
+        public username: string;
+      }
+
+      class User extends Base {
+        @string.token(false)
+        public username: string;
+      }
+
+      it("should pass when field value does not contain only alphabetic and underscore characters and false is passed to decorator", () => {
+        const user = new User();
+
+        user.username = "%####$";
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@string.email decorator", function () {
     describe("same class", function () {
       class User {

@@ -28,6 +28,10 @@ function buildJoiString(description: FieldDescription) {
     schema = schema.alphanum();
   }
 
+  if (description.token) {
+    schema = schema.token();
+  }
+
   if (description.minLength || description.nonempty) {
     schema = schema.min(Math.max(description.minLength || 0, 1));
   }

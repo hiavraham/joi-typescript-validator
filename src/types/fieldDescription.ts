@@ -72,6 +72,11 @@ export interface FieldDescription {
   alphanum?: boolean;
 
   /**
+   * Alphabetic and underscore characters constraint for string fields
+   */
+  token?: boolean;
+
+  /**
    * Length greater than 0 constraint for array or string fields
    */
   nonempty?: boolean;
