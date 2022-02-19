@@ -200,6 +200,48 @@ describe("string attribute decorators", function () {
     });
   });
 
+  describe("@string.hostname decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.hostname()
+        public hostname: string;
+      }
+
+      it("should pass when field value is a valid hostname as per RFC1123", () => {
+        const user = new User();
+
+        user.hostname = "example.com";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not a valid hostname as per RFC1123", () => {
+        const user = new User();
+
+        user.hostname = "2387628";
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.hostname()
+        public hostname: string;
+      }
+
+      class User extends Base {
+        @string.hostname(false)
+        public hostname: string;
+      }
+
+      it("should pass when field value is not a valid hostname as per RFC1123 and false is passed to decorator", () => {
+        const user = new User();
+
+        user.hostname = "2387628";
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@string.isoDate decorator", function () {
     describe("same class", function () {
       class User {

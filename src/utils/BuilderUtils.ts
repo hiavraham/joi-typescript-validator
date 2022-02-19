@@ -44,6 +44,10 @@ function buildJoiString(description: FieldDescription) {
     schema = schema.email();
   }
 
+  if (description.hostname) {
+    schema = schema.hostname();
+  }
+
   if (description.isoDate) {
     schema = schema.isoDate();
   }

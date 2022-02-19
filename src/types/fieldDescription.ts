@@ -67,6 +67,11 @@ export interface FieldDescription {
   email?: boolean;
 
   /**
+   * Valid hostname as per RFC1123 constraint for string fields
+   */
+  hostname?: boolean;
+
+  /**
    * Valid ISO 8601 date format constraint for string fields
    */
   isoDate?: boolean;

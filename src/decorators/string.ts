@@ -73,6 +73,18 @@ export function email<T extends object>(isEnabled = true) {
 }
 
 /**
+ * Constrain field value to be a valid hostname as per RFC1123
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function hostname<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { hostname: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain field value to be of valid ISO 8601 date format
  * @template T
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
