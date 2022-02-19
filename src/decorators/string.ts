@@ -85,6 +85,18 @@ export function isoDate<T extends object>(isEnabled = true) {
 }
 
 /**
+ * Constrain field value to be of valid ISO 8601 duration format
+ * @template T
+ * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
+ */
+export function isoDuration<T extends object>(isEnabled = true) {
+  return (target: T, propertyKey: string) => {
+    const description = { isoDuration: isEnabled };
+    setFieldDescription(target, propertyKey, description);
+  };
+}
+
+/**
  * Constrain field value to be a valid credit card number (using Luhn Algorithm)
  * @template T
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field

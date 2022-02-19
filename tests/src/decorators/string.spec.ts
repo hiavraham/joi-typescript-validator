@@ -242,6 +242,48 @@ describe("string attribute decorators", function () {
     });
   });
 
+  describe("@string.isoDuration decorator", function () {
+    describe("same class", function () {
+      class User {
+        @string.isoDuration()
+        public duration: string;
+      }
+
+      it("should pass when field value is of ISO 8601 duration format", () => {
+        const user = new User();
+
+        user.duration = "PT40S";
+        expect(user).to.be.valid;
+      });
+
+      it("should error when field value is not of ISO 8601 duration format", () => {
+        const user = new User();
+
+        user.duration = new Date().toDateString();
+        expect(user).to.not.be.valid;
+      });
+    });
+
+    describe("inheritance", function () {
+      class Base {
+        @string.isoDuration()
+        public duration: string;
+      }
+
+      class User extends Base {
+        @string.isoDuration(false)
+        public duration: string;
+      }
+
+      it("should pass when field value is not of ISO 8601 duration format and false is passed to decorator", () => {
+        const user = new User();
+
+        user.duration = new Date().toDateString();
+        expect(user).to.be.valid;
+      });
+    });
+  });
+
   describe("@string.creditCard decorator", function () {
     describe("same class", function () {
       class User {

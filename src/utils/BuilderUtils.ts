@@ -48,6 +48,10 @@ function buildJoiString(description: FieldDescription) {
     schema = schema.isoDate();
   }
 
+  if (description.isoDuration) {
+    schema = schema.isoDuration();
+  }
+
   if (description.creditCard) {
     schema = schema.creditCard();
   }
