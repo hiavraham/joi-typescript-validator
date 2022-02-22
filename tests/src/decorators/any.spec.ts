@@ -58,55 +58,6 @@ describe("any attribute decorators", function () {
         });
       });
     });
-
-    describe("nullable type", function () {
-      class User {
-        @any.required()
-        public name: string | null;
-      }
-
-      it("should pass when field value is not undefined", () => {
-        const user = new User();
-
-        user.name = "Jane";
-        expect(user).to.be.valid;
-
-        user.name = null;
-        expect(user).to.be.valid;
-
-        user.name = "";
-        expect(user).to.be.valid;
-      });
-
-      it("should error when field value is empty string, null or undefined", () => {
-        const user = new User();
-
-        expect(user).to.not.be.valid;
-      });
-    });
-
-    describe("non-nullable string type", function () {
-      class User {
-        @any.required()
-        public name: string;
-      }
-
-      it("should pass when field value is not empty string or undefined", () => {
-        const user = new User();
-
-        user.name = "Jane";
-        expect(user).to.be.valid;
-      });
-
-      it("should error when field value is empty string or undefined", () => {
-        const user = new User();
-
-        expect(user).to.not.be.valid;
-
-        user.name = "";
-        expect(user).to.not.be.valid;
-      });
-    });
   });
 
   describe("@any.optional decorator", function () {
