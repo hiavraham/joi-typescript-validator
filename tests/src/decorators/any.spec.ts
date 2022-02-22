@@ -5,6 +5,166 @@ import { any, string } from "../../../src/decorators";
 
 describe("any attribute decorators", function () {
   describe("@any.required decorator", function () {
+    describe("base", function () {
+      describe("array type", function () {
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", Array)
+          public favoriteColors: string[] | null;
+        }
+
+        it("should pass when field value is array", () => {
+          const user = new User();
+
+          user.favoriteColors = [];
+          expect(user).to.be.valid;
+
+          user.favoriteColors = ["violet", "purple"];
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.favoriteColors = null;
+          expect(user).to.not.be.valid;
+        });
+      });
+
+      describe("boolean type", function () {
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", Boolean)
+          public isAdmin: boolean | null;
+        }
+
+        it("should pass when field value is boolean", () => {
+          const user = new User();
+
+          user.isAdmin = true;
+          expect(user).to.be.valid;
+
+          user.isAdmin = false;
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.isAdmin = null;
+          expect(user).to.not.be.valid;
+        });
+      });
+
+      describe("date type", function () {
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", Date)
+          public createdAt: Date | null;
+        }
+
+        it("should pass when field value is date", () => {
+          const user = new User();
+
+          user.createdAt = new Date();
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.createdAt = null;
+          expect(user).to.not.be.valid;
+        });
+      });
+
+      describe("number type", function () {
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", Number)
+          public code: number | null;
+        }
+
+        it("should pass when field value is number", () => {
+          const user = new User();
+
+          user.code = 0;
+          expect(user).to.be.valid;
+
+          user.code = 1;
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.code = null;
+          expect(user).to.not.be.valid;
+        });
+      });
+
+      describe("object type", function () {
+        class Vehicle {}
+
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", Vehicle)
+          public vehicle: Vehicle | null;
+        }
+
+        it("should pass when field value is object", () => {
+          const user = new User();
+
+          user.vehicle = new Vehicle();
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.vehicle = null;
+          expect(user).to.not.be.valid;
+        });
+      });
+
+      describe("string type", function () {
+        class User {
+          @any.required()
+          @Reflect.metadata("design:type", String)
+          public name: string | null;
+        }
+
+        it("should pass when field value is string of length greater than 0", () => {
+          const user = new User();
+
+          user.name = "Jane";
+          expect(user).to.be.valid;
+        });
+
+        it("should error when field value is an empty string, null or undefined", () => {
+          const user = new User();
+
+          expect(user).to.not.be.valid;
+
+          user.name = null;
+          expect(user).to.not.be.valid;
+
+          user.name = "";
+          expect(user).to.not.be.valid;
+        });
+      });
+    });
+
     describe("required overrides optional", function () {
       describe("same class", function () {
         class User {
