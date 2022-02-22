@@ -176,17 +176,18 @@ function buildJoiArray(description: FieldDescription) {
  * @returns {BaseJoi.ObjectSchema}
  */
 function buildJoiObject(description: FieldDescription) {
+  let schema = Joi.object();
+
   const metadata = getMetadata(description.designType);
-  if (!metadata) {
-    return Joi.any();
+  if (metadata !== undefined) {
+    const payload = Object.keys(metadata).reduce((acc, item) => ({
+      ...acc,
+      [item]: buildJoiChildren(metadata[item]),
+    }), {});
+
+    schema = schema.keys(payload);
   }
 
-  const payload = Object.keys(metadata).reduce((acc, item) => ({
-    ...acc,
-    [item]: buildJoiChildren(metadata[item]),
-  }), {});
-
-  const schema = Joi.object().keys(payload);
   const options = getOptions(description.designType);
 
   return options ? schema.options(options) : schema;
