@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { expect } from "../../helpers";
 import { date } from "../../../src/decorators";
 
 describe("date attribute decorators", function () {
