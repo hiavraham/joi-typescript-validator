@@ -15,42 +15,29 @@ export function printMetadata<T>(klass: Class<T>) {
 }
 
 /**
- * Extract fields metadata from class, taking into account parent classes.
- * Recursevly get the metadata from class parents and merge them accordingly.
+ * Get class fields metadata recursevly from class parents and merge them accordingly
  * @template T
  * @param {Class<T>} klass Class, for which, to get the fields metadata
- * @param {TreeMetadata} metadata Metadata attached with reflect-metadata
- * @returns {FieldsMap}
+ * @returns {FieldsMap | void}
  */
-function extractClassMetadata<T>(klass: Class<T>, metadata: TreeMetadata): FieldsMap {
+export function getMetadata<T>(klass: Class<T> | undefined): FieldsMap | void {
+  if (klass === undefined) {
+    return;
+  }
+
+  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
+  if (metadata === undefined) {
+    return;
+  }
   const classDescription = metadata.get(klass) || {};
   const fields = classDescription.fields || {};
 
   const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
   if (parentClass.name !== "") {
-    return { ...extractClassMetadata(parentClass, metadata), ...fields };
+    return { ...getMetadata(parentClass), ...fields };
   }
 
-  return fields;
-}
-
-/**
- * Get class fields metadata
- * @template T
- * @param {Class<T>} klass Class, for which, to get the fields metadata
- * @returns {FieldsMap | void}
- */
-export function getMetadata<T>(klass: Class<T> | undefined) {
-  if (klass === undefined) {
-    return;
-  }
-
-  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata;
-  if (metadata === undefined) {
-    return;
-  }
-
-  return extractClassMetadata(klass, metadata);
+  return classDescription.fields;
 }
 
 /**
