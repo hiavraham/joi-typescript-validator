@@ -2,6 +2,7 @@ import "reflect-metadata";
 import Joi, { ValidationOptions } from "joi";
 
 import { Class, FieldDescription } from "../types";
+import { getClassOwnMetadata } from "../helpers";
 
 /**
  * Joi Schema or Joi SchemaFunction
@@ -84,7 +85,7 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
   const designType = Reflect.getOwnMetadata("design:type", target, propertyKey) as Class<unknown>;
   const constructor = target.constructor as Class<T>;
 
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, constructor) || {}) as ClassDescription;
+  const metadata = getClassOwnMetadata(constructor) || {};
 
   const fields = metadata.fields || {};
   fields[propertyKey] = fields[propertyKey] || {};
@@ -100,7 +101,7 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
  * @param {SchemaArgs} args  Joi schema or schema function to attach to class
  */
 export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || {}) as ClassDescription;
+  const metadata = getClassOwnMetadata(klass) || {};
   Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, globalArgs: args }, klass);
 }
 
@@ -111,6 +112,6 @@ export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
  * @param {ValidationOptions} options Validations options to attach to class
  */
 export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || {}) as ClassDescription;
+  const metadata = getClassOwnMetadata(klass) || {};
   Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, options }, klass);
 }
