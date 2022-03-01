@@ -45,7 +45,7 @@ export function getMetadata<T>(klass: Class<T> | undefined) {
     return;
   }
 
-  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass.prototype) as TreeMetadata;
+  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata;
   if (metadata === undefined) {
     return;
   }
@@ -64,7 +64,7 @@ export function getOptions<T>(klass: Class<T> | undefined): ValidationOptions | 
     return;
   }
 
-  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass.prototype) as TreeMetadata | undefined;
+  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
   if (metadata === undefined) {
     return;
   }
@@ -91,7 +91,7 @@ export function getGlobalArgs<T>(klass: Class<T> | undefined): SchemaArgs | void
     return;
   }
 
-  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass.prototype) as TreeMetadata | undefined;
+  const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
   if (metadata === undefined) {
     return;
   }
