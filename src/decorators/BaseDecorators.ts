@@ -86,10 +86,10 @@ export type TreeMetadata = Map<unknown, ClassDescription>;
  * @param {FieldDescription} description Field description metadata to attach to prototype constructor
  */
 export function setFieldDescription<T extends object>(target: T, propertyKey: string, description: FieldDescription) {
-  const designType = Reflect.getMetadata("design:type", target, propertyKey) as Class<unknown>;
+  const designType = Reflect.getOwnMetadata("design:type", target, propertyKey) as Class<unknown>;
   const constructor = target.constructor as Class<T>;
 
-  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, constructor) || new Map()) as TreeMetadata;
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, constructor) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(constructor) || {};
 
   const fields = classDescription.fields || {};
@@ -108,7 +108,7 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
  * @param {SchemaArgs} args  Joi schema or schema function to attach to class
  */
 export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
-  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(klass) || {};
 
   metadata.set(klass, { ...classDescription, globalArgs: args });
@@ -123,7 +123,7 @@ export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
  * @param {ValidationOptions} options Validations options to attach to class
  */
 export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
-  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(klass) || {};
 
   metadata.set(klass, { ...classDescription, options });
