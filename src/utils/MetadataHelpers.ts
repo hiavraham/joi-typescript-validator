@@ -41,7 +41,7 @@ export function getMetadata<T>(klass: Class<T> | undefined): FieldsMap | void {
 }
 
 /**
- * Get ValidationOptions passed to class with `@SchemaOptions` decorator
+ * Get ValidationOptions metadata recursevly until passed to class with `@klass.schemaOptions` decorator
  * @template T
  * @param {Class<T>} klass Class for which to get the schema options passed by decorator
  * @returns {ValidationOptions | void} Joi ValidationOptions
@@ -52,12 +52,9 @@ export function getOptions<T>(klass: Class<T> | undefined): ValidationOptions | 
   }
 
   const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
-  if (metadata === undefined) {
-    return;
-  }
 
-  const classDescription = metadata.get(klass);
-  if (classDescription === undefined) {
+  const classDescription = metadata?.get(klass);
+  if (classDescription?.options === undefined) {
     const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
     if (parentClass.name !== "") {
       return getOptions(parentClass);

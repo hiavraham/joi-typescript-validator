@@ -191,8 +191,8 @@ describe("getOptions function", function () {
       expect(getOptions(User)).to.be.eql({ allowUnknown: true });
     });
 
-    it("should return undefined when class has Joi decorators", () => {
-      expect(getOptions(Post)).to.be.undefined;
+    it("should return validation options passed to decorator in parent class when class has Joi decorators", () => {
+      expect(getOptions(Post)).to.be.eql({ allowUnknown: true });
     });
   });
 });
