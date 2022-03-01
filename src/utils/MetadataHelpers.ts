@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { ValidationOptions } from "joi";
 
 import { MetadataKeys } from "..";
-import { FieldsMap, SchemaArgs, TreeMetadata } from "../decorators/BaseDecorators";
+import { ClassDescription, FieldsMap, SchemaArgs } from "../decorators/BaseDecorators";
 import { Class } from "../types";
 
 /**
@@ -25,19 +25,18 @@ export function getMetadata<T>(klass: Class<T> | undefined): FieldsMap | void {
     return;
   }
 
-  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
+  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as ClassDescription | undefined;
   if (metadata === undefined) {
     return;
   }
-  const classDescription = metadata.get(klass) || {};
-  const fields = classDescription.fields || {};
+  const fields = metadata.fields || {};
 
   const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
   if (parentClass.name !== "") {
     return { ...getMetadata(parentClass), ...fields };
   }
 
-  return classDescription.fields;
+  return metadata.fields;
 }
 
 /**
@@ -51,16 +50,15 @@ export function getOptions<T>(klass: Class<T> | undefined): ValidationOptions | 
     return;
   }
 
-  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
+  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as ClassDescription | undefined;
 
-  const classDescription = metadata?.get(klass);
-  if (classDescription?.options === undefined) {
+  if (metadata?.options === undefined) {
     const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
     if (parentClass.name !== "") {
       return getOptions(parentClass);
     }
   } else {
-    return classDescription.options;
+    return metadata.options;
   }
 }
 
@@ -75,15 +73,14 @@ export function getGlobalArgs<T>(klass: Class<T> | undefined): SchemaArgs | void
     return;
   }
 
-  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
+  const metadata = Reflect.getOwnMetadata(MetadataKeys.Fields, klass) as ClassDescription | undefined;
 
-  const classDescription = metadata?.get(klass);
-  if (classDescription?.globalArgs === undefined) {
+  if (metadata?.globalArgs === undefined) {
     const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
     if (parentClass.name !== "") {
       return getGlobalArgs(parentClass);
     }
   } else {
-    return classDescription.globalArgs;
+    return metadata.globalArgs;
   }
 }

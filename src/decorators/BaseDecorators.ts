@@ -74,11 +74,6 @@ export class ClassDescription {
 }
 
 /**
- * Class tree metadata
- */
-export type TreeMetadata = Map<unknown, ClassDescription>;
-
-/**
  * Attach field design type and description to prototype constructor metadata
  * @template T
  * @param {T}                target      Class prototype, for which, to attach field design type and description to constructor
@@ -89,16 +84,13 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
   const designType = Reflect.getOwnMetadata("design:type", target, propertyKey) as Class<unknown>;
   const constructor = target.constructor as Class<T>;
 
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, constructor) || new Map()) as TreeMetadata;
-  const classDescription = metadata.get(constructor) || {};
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, constructor) || {}) as ClassDescription;
 
-  const fields = classDescription.fields || {};
+  const fields = metadata.fields || {};
   fields[propertyKey] = fields[propertyKey] || {};
   fields[propertyKey] = { ...fields[propertyKey], designType, ...description };
 
-  metadata.set(constructor, { ...classDescription, fields });
-
-  Reflect.defineMetadata(MetadataKeys.Fields, metadata, constructor);
+  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, fields }, constructor);
 }
 
 /**
@@ -108,12 +100,8 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
  * @param {SchemaArgs} args  Joi schema or schema function to attach to class
  */
 export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
-  const classDescription = metadata.get(klass) || {};
-
-  metadata.set(klass, { ...classDescription, globalArgs: args });
-
-  Reflect.defineMetadata(MetadataKeys.Fields, metadata, klass);
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || {}) as ClassDescription;
+  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, globalArgs: args }, klass);
 }
 
 /**
@@ -123,10 +111,6 @@ export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
  * @param {ValidationOptions} options Validations options to attach to class
  */
 export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
-  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || new Map()) as TreeMetadata;
-  const classDescription = metadata.get(klass) || {};
-
-  metadata.set(klass, { ...classDescription, options });
-
-  Reflect.defineMetadata(MetadataKeys.Fields, metadata, klass);
+  const metadata = (Reflect.getOwnMetadata(MetadataKeys.Fields, klass) || {}) as ClassDescription;
+  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, options }, klass);
 }
