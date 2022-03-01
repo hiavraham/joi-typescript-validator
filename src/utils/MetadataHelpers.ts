@@ -6,15 +6,6 @@ import { ClassDescription, FieldsMap, SchemaArgs } from "../decorators/BaseDecor
 import { Class } from "../types";
 
 /**
- * Print class metadata to console
- * @template T
- * @param {Class<T>} klass Class for which to print metadata
- */
-export function printMetadata<T>(klass: Class<T>) {
-  console.dir(getMetadata(klass), { depth: null });
-}
-
-/**
  * Get class fields metadata recursevly from class parents and merge them accordingly
  * @template T
  * @param {Class<T>} klass Class, for which, to get the fields metadata
