@@ -87,7 +87,7 @@ export type TreeMetadata = Map<unknown, ClassDescription>;
  */
 export function setFieldDescription<T extends object>(target: T, propertyKey: string, description: FieldDescription) {
   const designType = Reflect.getMetadata("design:type", target, propertyKey) as Class<unknown>;
-  const metadata = getFieldsMetadata(target);
+  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, target) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(target.constructor) || {};
 
   const fields = classDescription.fields || {};
@@ -106,7 +106,7 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
  * @param {SchemaArgs} args  Joi schema or schema function to attach to class
  */
 export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
-  const metadata = getFieldsMetadata(klass.prototype);
+  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, klass.prototype) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(klass) || {};
 
   metadata.set(klass, { ...classDescription, globalArgs: args });
@@ -121,21 +121,10 @@ export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
  * @param {ValidationOptions} options Validations options to attach to class
  */
 export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
-  const metadata = getFieldsMetadata(klass.prototype);
+  const metadata = (Reflect.getMetadata(MetadataKeys.Fields, klass.prototype) || new Map()) as TreeMetadata;
   const classDescription = metadata.get(klass) || {};
 
   metadata.set(klass, { ...classDescription, options });
 
   Reflect.defineMetadata(MetadataKeys.Fields, metadata, klass);
-}
-
-/**
- * Get fields metadata Map for class prototype
- * @template T
- * @param {T} target Class prototype
- * @returns {TreeMetadata} Existing fields metadata or a new empty Map
- */
-function getFieldsMetadata<T>(target: T) {
-  const reflectMetadata = Reflect.getMetadata(MetadataKeys.Fields, target) as TreeMetadata;
-  return reflectMetadata || new Map() as TreeMetadata;
 }
