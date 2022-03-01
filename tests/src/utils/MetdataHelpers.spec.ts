@@ -241,8 +241,8 @@ describe("getGlobalArgs function", function () {
       expect(getGlobalArgs(User)).to.be.eql(func);
     });
 
-    it("should return undefined when class has Joi decorators", () => {
-      expect(getGlobalArgs(Post)).to.be.undefined;
+    it("should return Joi schema or schema function passed to decorator in parent class when class has Joi decorators", () => {
+      expect(getGlobalArgs(Post)).to.be.eql(func);
     });
   });
 });

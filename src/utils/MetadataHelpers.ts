@@ -65,7 +65,7 @@ export function getOptions<T>(klass: Class<T> | undefined): ValidationOptions | 
 }
 
 /**
- * Get SchemaArgs passed to class with `@CustomSchema` decorator
+ * Get SchemaArgs recursevly until passed to class with `@klass.customSchema` decorator
  * @template T
  * @param {Class<T>} klass Class for which to get the custom Joi schema or schema function passed by decorator
  * @returns {SchemaArgs | void} Joi schema or schema function
@@ -76,12 +76,9 @@ export function getGlobalArgs<T>(klass: Class<T> | undefined): SchemaArgs | void
   }
 
   const metadata = Reflect.getMetadata(MetadataKeys.Fields, klass) as TreeMetadata | undefined;
-  if (metadata === undefined) {
-    return;
-  }
 
-  const classDescription = metadata.get(klass);
-  if (classDescription === undefined) {
+  const classDescription = metadata?.get(klass);
+  if (classDescription?.globalArgs === undefined) {
     const parentClass = Object.getPrototypeOf(klass) as Class<unknown>;
     if (parentClass.name !== "") {
       return getGlobalArgs(parentClass);
