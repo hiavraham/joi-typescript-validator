@@ -1,8 +1,8 @@
 import BaseJoi from "joi";
 import JoiDateFactory from "@joi/date";
 
-import { getMetadata, getOptions, getGlobalArgs } from "./MetadataHelpers";
 import { Class, FieldDescription } from "../types";
+import { getClassMetadata } from "../helpers";
 
 /**
  * Joi instance customized with JoiDateFactory extension
@@ -178,17 +178,18 @@ function buildJoiArray(description: FieldDescription) {
 function buildJoiObject(description: FieldDescription) {
   let schema = Joi.object();
 
-  const metadata = getMetadata(description.designType);
+  const metadata = getClassMetadata(description.designType);
   if (metadata !== undefined) {
-    const payload = Object.keys(metadata).reduce((acc, item) => ({
+    const fields = metadata.fields || {};
+    const payload = Object.keys(fields).reduce((acc, item) => ({
       ...acc,
-      [item]: buildJoiChildren(metadata[item]),
+      [item]: buildJoiChildren(fields[item]),
     }), {});
 
     schema = schema.keys(payload);
   }
 
-  const options = getOptions(description.designType);
+  const options = metadata?.options;
 
   return options ? schema.options(options) : schema;
 }
@@ -224,7 +225,7 @@ function buildJoiGlobals(fieldSchema: BaseJoi.Schema, description: FieldDescript
     }
   }
 
-  const globals = getGlobalArgs(description.designType);
+  const globals = getClassMetadata(description.designType)?.globalArgs;
   if (globals) {
     if (typeof globals === "function") {
       schema = globals(schema);
@@ -275,14 +276,16 @@ function buildJoiChildren(description: FieldDescription) {
  * @returns {BaseJoi.ObjectSchema}
  */
 function buildJoiRoot<T>(klass: Class<T>) {
-  const metadata = getMetadata(klass) || {};
-  const partialSchema = Object.keys(metadata).reduce((acc, item) => ({
+  const metadata = getClassMetadata(klass) || {};
+
+  const fields = metadata.fields || {};
+  const partialSchema = Object.keys(fields).reduce((acc, item) => ({
     ...acc,
-    [item]: buildJoiChildren(metadata[item]),
+    [item]: buildJoiChildren(fields[item]),
   }), {});
 
-  const options = getOptions(klass);
-  const globals = getGlobalArgs(klass);
+  const options = metadata.options;
+  const globals = metadata.globalArgs;
 
   const objectSchema = BaseJoi.object().keys(partialSchema);
   const schema = options ? objectSchema.options(options) : objectSchema;
