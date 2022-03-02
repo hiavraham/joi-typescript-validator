@@ -1,6 +1,6 @@
 import chai from "chai";
 
-import { Validate } from "../../src";
+import { validate } from "../../src/helpers";
 import { Class } from "../../src/types";
 
 declare global {
@@ -16,7 +16,7 @@ chai.use(function (__chai, utils) {
     const obj = this._obj as object;
     const klass = obj.constructor as Class<object>;
 
-    new __chai.Assertion(Validate(klass, obj).error === undefined)
+    new __chai.Assertion(validate(klass, obj).error === undefined)
       .to
       .equal(utils.flag(this, "negate") === undefined);
   });

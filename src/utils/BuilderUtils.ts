@@ -328,15 +328,3 @@ export function getSchema<T>(klass: Class<T>, shouldSave = true) {
 export function getSchemaDescription<T>(klass: Class<T>, shouldSave = true) {
   return getSchema(klass, shouldSave).describe();
 }
-
-/**
- * Validates the class instance object and returns Joi validation result
- * @template T
- * @param {Class<T>} klass             Class of object
- * @param {object}   instance          Class instance object
- * @param {boolean}  [shouldSave=true] Boolean flag to choose whether or not to save the schema
- * @returns {BaseJoi.ValidationResult} Joi ValidationResult
- */
-export function Validate<T extends object>(klass: Class<T>, instance: T, shouldSave = true) {
-  return getSchema(klass, shouldSave).validate(instance);
-}
