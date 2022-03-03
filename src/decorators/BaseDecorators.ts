@@ -15,21 +15,6 @@ export type SchemaArgs = Joi.Schema | Joi.SchemaFunction;
 export const MetadataKeys = { Fields: "validate:fields" };
 
 /**
- * Threshold interface, describing a maximum or minimum (exclusive or inclusive) limit
- */
-export interface Threshold {
-  /**
-   * Limit value
-   */
-  value: number;
-
-  /**
-   * Mark to set limit as exclusive
-   */
-  exclude?: boolean;
-}
-
-/**
  * ConditionSchema interface, describing Joi schema based on condition value
  */
 export interface ConditionSchema {

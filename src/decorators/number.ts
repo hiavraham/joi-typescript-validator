@@ -1,4 +1,4 @@
-import { setFieldDescription, Threshold } from "..";
+import { setFieldDescription } from "..";
 
 /**
  * Allow number field to be unsafe (out of JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER))
@@ -51,13 +51,11 @@ export function port<T extends object>(isEnabled = true) {
 /**
  * Constrain number field to be less than or equal to a certain value
  * @template T
- * @param {Threshold | number} value Value, by which, to constrain the field to be less than or equal to
+ * @param {number} value Value, by which, to constrain the field to be less than or equal to
  */
-export function max<T extends object>(value: Threshold | number) {
-  const maxValue = typeof (value) === "number" ? { value } : value;
-
+export function max<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
-    const description = { maxValue };
+    const description = { maxValue: value };
     setFieldDescription(target, propertyKey, description);
   };
 }
@@ -65,13 +63,11 @@ export function max<T extends object>(value: Threshold | number) {
 /**
  * Constrain number field to be greater than or equal to a certain value
  * @template T
- * @param {Threshold | number} value Value, by which, to constrain the field to be greater than or equal to
+ * @param {number} value Value, by which, to constrain the field to be greater than or equal to
  */
-export function min<T extends object>(value: Threshold | number) {
-  const minValue = typeof (value) === "number" ? { value } : value;
-
+export function min<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
-    const description = { minValue };
+    const description = { minValue: value };
     setFieldDescription(target, propertyKey, description);
   };
 }

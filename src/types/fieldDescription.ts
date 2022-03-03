@@ -1,5 +1,5 @@
 import { Class } from "../types";
-import { ConditionSchema, SchemaArgs, Threshold } from "../decorators/BaseDecorators";
+import { ConditionSchema, SchemaArgs } from "../decorators/BaseDecorators";
 import Joi from "joi";
 
 /**
@@ -54,12 +54,12 @@ export interface FieldDescription {
   /**
    * Min value constraint for number fields
    */
-  minValue?: Threshold;
+  minValue?: number;
 
   /**
    * Max value constraint for number fields
    */
-  maxValue?: Threshold;
+  maxValue?: number;
 
   /**
    * Email format constraint for string fields

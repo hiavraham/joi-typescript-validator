@@ -114,20 +114,12 @@ function buildJoiNumber(description: FieldDescription) {
     schema = schema.port();
   }
 
-  if (description.minValue) {
-    schema = schema.min(description.minValue.value);
-
-    if (description.minValue.exclude) {
-      schema = schema.invalid(description.minValue.value);
-    }
+  if (description.minValue !== undefined) {
+    schema = schema.min(description.minValue);
   }
 
-  if (description.maxValue) {
-    schema = schema.max(description.maxValue.value);
-
-    if (description.maxValue.exclude) {
-      schema = schema.invalid(description.maxValue.value);
-    }
+  if (description.maxValue !== undefined) {
+    schema = schema.max(description.maxValue);
   }
 
   if (description.positive) {
