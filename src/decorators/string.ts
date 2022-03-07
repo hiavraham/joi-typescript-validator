@@ -1,18 +1,6 @@
 import { setFieldDescription } from "..";
 
 /**
- * Constrain string field length to be greater than 0
- * @template T
- * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
- */
-export function notEmpty<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
-    const description = { nonempty: isEnabled };
-    setFieldDescription(target, propertyKey, description);
-  };
-}
-
-/**
  * Constrain string field to only contain alphanumeric characters (a-z, A-Z, and 0-9)
  * @template T
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field

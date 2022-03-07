@@ -97,7 +97,7 @@ export interface FieldDescription {
   token?: boolean;
 
   /**
-   * Length greater than 0 constraint for array or string fields
+   * Length greater than 0 constraint for array fields
    */
   nonempty?: boolean;
 

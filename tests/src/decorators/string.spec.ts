@@ -2,27 +2,6 @@ import { expect } from "../../helpers";
 import { string } from "../../../src/decorators";
 
 describe("string attribute decorators", function () {
-  describe("@string.notEmpty decorator", function () {
-    class User {
-      @string.notEmpty()
-      public tag: string;
-    }
-
-    it("should pass when field value length is greater than 0", () => {
-      const user = new User();
-
-      user.tag = "Section A";
-      expect(user).to.be.valid;
-    });
-
-    it("should error when field value length is 0", () => {
-      const user = new User();
-
-      user.tag = "";
-      expect(user).to.not.be.valid;
-    });
-  });
-
   describe("@string.max decorator", function () {
     class User {
       @string.max(6)
