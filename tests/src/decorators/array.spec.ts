@@ -47,9 +47,9 @@ describe("array attribute decorators", function () {
     });
   });
 
-  describe("@array.maxLength decorator", function () {
+  describe("@array.max decorator", function () {
     class User {
-      @array.maxLength(5)
+      @array.max(5)
       public favoriteColors: string[];
     }
 
