@@ -26,27 +26,6 @@ describe("array attribute decorators", function () {
     });
   });
 
-  describe("@array.notEmpty decorator", function () {
-    class User {
-      @array.notEmpty()
-      public favoriteColors: string[];
-    }
-
-    it("should pass when field value length is greater than 0", () => {
-      const user = new User();
-
-      user.favoriteColors = ["blue"];
-      expect(user).to.be.valid;
-    });
-
-    it("should error when field value length is 0", () => {
-      const user = new User();
-
-      user.favoriteColors = [];
-      expect(user).to.not.be.valid;
-    });
-  });
-
   describe("@array.max decorator", function () {
     class User {
       @array.max(5)

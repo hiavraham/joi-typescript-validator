@@ -97,11 +97,6 @@ export interface FieldDescription {
   token?: boolean;
 
   /**
-   * Length greater than 0 constraint for array fields
-   */
-  nonempty?: boolean;
-
-  /**
    * Min length constraint for array and string fields
    */
   minLength?: number;

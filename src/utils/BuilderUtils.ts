@@ -151,8 +151,8 @@ function buildJoiArray(description: FieldDescription) {
     schema = schema.items(Joi.any());
   }
 
-  if (description.minLength || description.nonempty) {
-    schema = schema.min(Math.max(description.minLength || 0, 1));
+  if (description.minLength !== undefined) {
+    schema = schema.min(description.minLength);
   }
 
   if (description.maxLength) {
