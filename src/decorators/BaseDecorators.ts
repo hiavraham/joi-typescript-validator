@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import Joi, { ValidationOptions } from "joi";
+import Joi from "joi";
 
 import { Class, FieldDescription } from "../types";
 import { getClassOwnMetadata } from "../helpers";
@@ -32,26 +32,6 @@ export interface ConditionSchema {
    * Joi schema when condition evaluates to false
    */
   falsy: Joi.Schema;
-}
-
-/**
- * Class description metadata
- */
-export class ClassDescription {
-  /**
-   * Class fields object containing each field's FieldDescription
-   */
-  public fields?: { [key: string]: FieldDescription };
-
-  /**
-   * Class options attached with `@SchemaOptions` decorator
-   */
-  public options?: ValidationOptions;
-
-  /**
-   * Class globalArgs attached with `@CustomSchema` decorator
-   */
-  public globalArgs?: SchemaArgs;
 }
 
 /**

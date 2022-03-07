@@ -1,6 +1,5 @@
 import { getClassOwnMetadata } from ".";
-import { ClassDescription } from "..";
-import { Class } from "../types";
+import { Class, ClassMetadata } from "../types";
 
 /**
  * Get class metadata and merge recursively with metadata of ancestor classes
@@ -8,7 +7,7 @@ import { Class } from "../types";
  * @param {Class<T> | undefined} klass Class, for which, to get the metadata of
  * @returns {ClassDescription | undefined}
  */
-export const getClassMetadata = <T>(klass: Class<T> | undefined): ClassDescription | undefined => {
+export const getClassMetadata = <T>(klass: Class<T> | undefined): ClassMetadata | undefined => {
   if (klass === undefined) {
     return;
   }
