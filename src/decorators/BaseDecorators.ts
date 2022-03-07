@@ -73,25 +73,3 @@ export function setFieldDescription<T extends object>(target: T, propertyKey: st
 
   Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, fields }, constructor);
 }
-
-/**
- * Attach Joi schema or schema function to class metadata as globalArgs
- * @template T
- * @param {Class<T>}   klass Class to attach globalArgs to
- * @param {SchemaArgs} args  Joi schema or schema function to attach to class
- */
-export function setSchemaGlobals<T>(klass: Class<T>, args: SchemaArgs) {
-  const metadata = getClassOwnMetadata(klass) || {};
-  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, globalArgs: args }, klass);
-}
-
-/**
- * Attach Joi validation options to class metadata as options
- * @template T
- * @param {Class<T>}          klass   Class to attach validations options to
- * @param {ValidationOptions} options Validations options to attach to class
- */
-export function setSchemaOptions<T>(klass: Class<T>, options: ValidationOptions) {
-  const metadata = getClassOwnMetadata(klass) || {};
-  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, options }, klass);
-}

@@ -1,5 +1,6 @@
 import { ValidationOptions } from "joi";
-import { SchemaArgs, setSchemaGlobals, setSchemaOptions } from "..";
+import { SchemaArgs } from "..";
+import { annotateClass } from "../helpers";
 import { Class } from "../types";
 
 /**
@@ -9,7 +10,7 @@ import { Class } from "../types";
  */
 export function customSchema<T>(schema: SchemaArgs) {
   return (target: Class<T>) => {
-    setSchemaGlobals(target, schema);
+    annotateClass(target, { globalArgs: schema });
   };
 }
 
@@ -20,6 +21,6 @@ export function customSchema<T>(schema: SchemaArgs) {
  */
 export function schemaOptions<T>(options: ValidationOptions) {
   return (target: Class<T>) => {
-    setSchemaOptions(target, options);
+    annotateClass(target, { options });
   };
 }
