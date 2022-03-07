@@ -23,9 +23,9 @@ describe("string attribute decorators", function () {
     });
   });
 
-  describe("@string.maxLength decorator", function () {
+  describe("@string.max decorator", function () {
     class User {
-      @string.maxLength(6)
+      @string.max(6)
       public tag: string;
     }
 

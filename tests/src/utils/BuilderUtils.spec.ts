@@ -7,7 +7,7 @@ import { any, number, string } from "../../../src/decorators";
 
 class User {
   @any.required()
-  @string.maxLength(50)
+  @string.max(50)
   @string.minLength(10)
   public id: string;
 

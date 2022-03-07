@@ -41,7 +41,7 @@ export function token<T extends object>(isEnabled = true) {
  * @template T
  * @param {number} value Value, by which, to constrain the maximum length
  */
-export function maxLength<T extends object>(value: number) {
+export function max<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { maxLength: value };
     setFieldDescription(target, propertyKey, description);
