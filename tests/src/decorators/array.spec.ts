@@ -71,9 +71,9 @@ describe("array attribute decorators", function () {
     });
   });
 
-  describe("@array.minLength decorator", function () {
+  describe("@array.min decorator", function () {
     class User {
-      @array.minLength(3)
+      @array.min(3)
       public favoriteColors: string[];
     }
 
