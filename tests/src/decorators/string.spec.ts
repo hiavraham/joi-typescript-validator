@@ -47,9 +47,9 @@ describe("string attribute decorators", function () {
     });
   });
 
-  describe("@string.minLength decorator", function () {
+  describe("@string.min decorator", function () {
     class User {
-      @string.minLength(5)
+      @string.min(5)
       public tag: string;
     }
 

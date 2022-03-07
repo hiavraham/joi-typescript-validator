@@ -8,7 +8,7 @@ import { any, number, string } from "../../../src/decorators";
 class User {
   @any.required()
   @string.max(50)
-  @string.minLength(10)
+  @string.min(10)
   public id: string;
 
   @any.optional()

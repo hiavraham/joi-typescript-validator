@@ -53,7 +53,7 @@ export function max<T extends object>(value: number) {
  * @template T
  * @param {number} value Value, by which, to constrain the minimum length
  */
-export function minLength<T extends object>(value: number) {
+export function min<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { minLength: value };
     setFieldDescription(target, propertyKey, description);

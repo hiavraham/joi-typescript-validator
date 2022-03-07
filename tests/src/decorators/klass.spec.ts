@@ -8,7 +8,7 @@ describe("class attribute decorators", function () {
     describe("Joi schema to override class schema", function () {
       @klass.customSchema(Joi.object({ username: Joi.string().alphanum() }))
       class User {
-        @string.minLength(3)
+        @string.min(3)
         public name: string;
 
         @string.email()
