@@ -6,7 +6,7 @@ import { annotateClassField } from "../helpers";
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function unsafe<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { unsafe: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -18,7 +18,7 @@ export function unsafe<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function integer<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { integer: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -30,7 +30,7 @@ export function integer<T extends object>(isEnabled = true) {
  * @param {number} precision Maximum number of decimal places, to constraint the field to
  */
 export function precision<T extends object>(precision: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { precision };
     annotateClassField(target, propertyKey, description);
   };
@@ -42,7 +42,7 @@ export function precision<T extends object>(precision: number) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function port<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { port: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -54,7 +54,7 @@ export function port<T extends object>(isEnabled = true) {
  * @param {number} value Value, by which, to constrain the field to be less than or equal to
  */
 export function max<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { maxValue: value };
     annotateClassField(target, propertyKey, description);
   };
@@ -66,7 +66,7 @@ export function max<T extends object>(value: number) {
  * @param {number} value Value, by which, to constrain the field to be greater than or equal to
  */
 export function min<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { minValue: value };
     annotateClassField(target, propertyKey, description);
   };
@@ -78,7 +78,7 @@ export function min<T extends object>(value: number) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function positive<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { positive: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -90,7 +90,7 @@ export function positive<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function negative<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { negative: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -102,7 +102,7 @@ export function negative<T extends object>(isEnabled = true) {
  * @param {number} base Value, by which, to constraint the field to be a multiple of
  */
 export function multipleOf<T extends object>(base: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { multipleOf: base };
     annotateClassField(target, propertyKey, description);
   };

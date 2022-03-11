@@ -6,7 +6,7 @@ import { annotateClassField } from "../helpers";
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function alphanum<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { alphanum: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -18,7 +18,7 @@ export function alphanum<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function token<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { token: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -30,7 +30,7 @@ export function token<T extends object>(isEnabled = true) {
  * @param {number} value Value, by which, to constrain the maximum length
  */
 export function max<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { maxLength: value };
     annotateClassField(target, propertyKey, description);
   };
@@ -42,7 +42,7 @@ export function max<T extends object>(value: number) {
  * @param {number} value Value, by which, to constrain the minimum length
  */
 export function min<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { minLength: value };
     annotateClassField(target, propertyKey, description);
   };
@@ -54,7 +54,7 @@ export function min<T extends object>(value: number) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function email<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { email: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -66,7 +66,7 @@ export function email<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function hostname<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { hostname: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -78,7 +78,7 @@ export function hostname<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function isoDate<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { isoDate: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -90,7 +90,7 @@ export function isoDate<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function isoDuration<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { isoDuration: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -102,7 +102,7 @@ export function isoDuration<T extends object>(isEnabled = true) {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function creditCard<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { creditCard: isEnabled };
     annotateClassField(target, propertyKey, description);
   };

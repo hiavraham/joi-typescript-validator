@@ -6,7 +6,7 @@ import { annotateClassField } from "../helpers";
  * @template T
  */
 export function required<T extends object>() {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { required: true };
     annotateClassField(target, propertyKey, description);
   };
@@ -17,7 +17,7 @@ export function required<T extends object>() {
  * @template T
  */
 export function optional<T extends object>() {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { required: false };
     annotateClassField(target, propertyKey, description);
   };
@@ -29,7 +29,7 @@ export function optional<T extends object>() {
  * @param {boolean} [isEnabled=true] Flag used to overwrite decorator on parent class field
  */
 export function nullable<T extends object>(isEnabled = true) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { nullable: isEnabled };
     annotateClassField(target, propertyKey, description);
   };
@@ -41,7 +41,7 @@ export function nullable<T extends object>(isEnabled = true) {
  * @param {unknown[]} args Values, by which, to constrain the field
  */
 export function allow<T extends object>(...args: unknown[]) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { options: args };
     annotateClassField(target, propertyKey, description);
   };
@@ -53,7 +53,7 @@ export function allow<T extends object>(...args: unknown[]) {
  * @param {SchemaArgs} schema Joi schema or schema fuction, by which, to constrain field
  */
 export function customSchema<T extends object>(schema: SchemaArgs) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { customSchema: schema };
     annotateClassField(target, propertyKey, description);
   };

@@ -8,7 +8,7 @@ import { Class } from "../types";
  * @param {Class<I>} type Primitive or class value to set the field type to
  */
 export function itemType<T extends object, I>(type: Class<I>) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { typeInfo: type };
     annotateClassField(target, propertyKey, description);
   };
@@ -20,7 +20,7 @@ export function itemType<T extends object, I>(type: Class<I>) {
  * @param {number} value Value, by which, to constrain the maximum length
  */
 export function max<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { maxLength: value };
     annotateClassField(target, propertyKey, description);
   };
@@ -32,7 +32,7 @@ export function max<T extends object>(value: number) {
  * @param {number} value Value, by which, to constrain the minimum length
  */
 export function min<T extends object>(value: number) {
-  return (target: T, propertyKey: string) => {
+  return (target: T, propertyKey: string | symbol) => {
     const description = { minLength: value };
     annotateClassField(target, propertyKey, description);
   };
