@@ -1,4 +1,4 @@
-import { setFieldDescription } from "..";
+import { annotateClassField } from "../helpers";
 
 /**
  * Allow number field to be unsafe (out of JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER))
@@ -8,7 +8,7 @@ import { setFieldDescription } from "..";
 export function unsafe<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { unsafe: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -20,7 +20,7 @@ export function unsafe<T extends object>(isEnabled = true) {
 export function integer<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { integer: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -32,7 +32,7 @@ export function integer<T extends object>(isEnabled = true) {
 export function precision<T extends object>(precision: number) {
   return (target: T, propertyKey: string) => {
     const description = { precision };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -44,7 +44,7 @@ export function precision<T extends object>(precision: number) {
 export function port<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { port: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -56,7 +56,7 @@ export function port<T extends object>(isEnabled = true) {
 export function max<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { maxValue: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -68,7 +68,7 @@ export function max<T extends object>(value: number) {
 export function min<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { minValue: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -80,7 +80,7 @@ export function min<T extends object>(value: number) {
 export function positive<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { positive: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -92,7 +92,7 @@ export function positive<T extends object>(isEnabled = true) {
 export function negative<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { negative: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -104,6 +104,6 @@ export function negative<T extends object>(isEnabled = true) {
 export function multipleOf<T extends object>(base: number) {
   return (target: T, propertyKey: string) => {
     const description = { multipleOf: base };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }

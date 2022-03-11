@@ -1,9 +1,5 @@
 import "reflect-metadata";
 import Joi from "joi";
-
-import { Class, FieldDescription } from "../types";
-import { getClassOwnMetadata } from "../helpers";
-
 /**
  * Joi Schema or Joi SchemaFunction
  */
@@ -32,24 +28,4 @@ export interface ConditionSchema {
    * Joi schema when condition evaluates to false
    */
   falsy: Joi.Schema;
-}
-
-/**
- * Attach field design type and description to prototype constructor metadata
- * @template T
- * @param {T}                target      Class prototype, for which, to attach field design type and description to constructor
- * @param {string}           propertyKey Field key to identify the field, for which, to set the description and design type
- * @param {FieldDescription} description Field description metadata to attach to prototype constructor
- */
-export function setFieldDescription<T extends object>(target: T, propertyKey: string, description: FieldDescription) {
-  const designType = Reflect.getOwnMetadata("design:type", target, propertyKey) as Class<unknown>;
-  const constructor = target.constructor as Class<T>;
-
-  const metadata = getClassOwnMetadata(constructor) || {};
-
-  const fields = metadata.fields || {};
-  fields[propertyKey] = fields[propertyKey] || {};
-  fields[propertyKey] = { ...fields[propertyKey], designType, ...description };
-
-  Reflect.defineMetadata(MetadataKeys.Fields, { ...metadata, fields }, constructor);
 }

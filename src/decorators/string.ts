@@ -1,4 +1,4 @@
-import { setFieldDescription } from "..";
+import { annotateClassField } from "../helpers";
 
 /**
  * Constrain string field to only contain alphanumeric characters (a-z, A-Z, and 0-9)
@@ -8,7 +8,7 @@ import { setFieldDescription } from "..";
 export function alphanum<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { alphanum: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -20,7 +20,7 @@ export function alphanum<T extends object>(isEnabled = true) {
 export function token<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { token: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -32,7 +32,7 @@ export function token<T extends object>(isEnabled = true) {
 export function max<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { maxLength: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -44,7 +44,7 @@ export function max<T extends object>(value: number) {
 export function min<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { minLength: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -56,7 +56,7 @@ export function min<T extends object>(value: number) {
 export function email<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { email: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -68,7 +68,7 @@ export function email<T extends object>(isEnabled = true) {
 export function hostname<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { hostname: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -80,7 +80,7 @@ export function hostname<T extends object>(isEnabled = true) {
 export function isoDate<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { isoDate: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -92,7 +92,7 @@ export function isoDate<T extends object>(isEnabled = true) {
 export function isoDuration<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { isoDuration: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -104,6 +104,6 @@ export function isoDuration<T extends object>(isEnabled = true) {
 export function creditCard<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { creditCard: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }

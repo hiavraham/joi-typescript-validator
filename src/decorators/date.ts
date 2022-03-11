@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { setFieldDescription } from "..";
+import { annotateClassField } from "../helpers";
 
 /**
  * Constrain date or string field to be of ISO 8601 date format
@@ -9,7 +9,7 @@ import { setFieldDescription } from "..";
 export function iso<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { dateString: true, iso: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -21,7 +21,7 @@ export function iso<T extends object>(isEnabled = true) {
 export function format<T extends object>(format = "YYYY-MM-DD") {
   return (target: T, propertyKey: string) => {
     const description = { dateString: true, dateStringFormat: format };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -33,7 +33,7 @@ export function format<T extends object>(format = "YYYY-MM-DD") {
 export function max<T extends object>(value: string | number | Date | Joi.Reference) {
   return (target: T, propertyKey: string) => {
     const description = { dateString: true, maxDate: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -45,6 +45,6 @@ export function max<T extends object>(value: string | number | Date | Joi.Refere
 export function min<T extends object>(value: string | number | Date | Joi.Reference) {
   return (target: T, propertyKey: string) => {
     const description = { dateString: true, minDate: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }

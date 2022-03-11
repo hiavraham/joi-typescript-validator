@@ -1,4 +1,5 @@
-import { SchemaArgs, setFieldDescription } from "..";
+import { SchemaArgs } from "..";
+import { annotateClassField } from "../helpers";
 
 /**
  * Mark field value as required
@@ -7,7 +8,7 @@ import { SchemaArgs, setFieldDescription } from "..";
 export function required<T extends object>() {
   return (target: T, propertyKey: string) => {
     const description = { required: true };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -18,7 +19,7 @@ export function required<T extends object>() {
 export function optional<T extends object>() {
   return (target: T, propertyKey: string) => {
     const description = { required: false };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -30,7 +31,7 @@ export function optional<T extends object>() {
 export function nullable<T extends object>(isEnabled = true) {
   return (target: T, propertyKey: string) => {
     const description = { nullable: isEnabled };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -42,7 +43,7 @@ export function nullable<T extends object>(isEnabled = true) {
 export function allow<T extends object>(...args: unknown[]) {
   return (target: T, propertyKey: string) => {
     const description = { options: args };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -54,6 +55,6 @@ export function allow<T extends object>(...args: unknown[]) {
 export function customSchema<T extends object>(schema: SchemaArgs) {
   return (target: T, propertyKey: string) => {
     const description = { customSchema: schema };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }

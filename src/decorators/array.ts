@@ -1,4 +1,4 @@
-import { setFieldDescription } from "..";
+import { annotateClassField } from "../helpers";
 import { Class } from "../types";
 
 /**
@@ -10,7 +10,7 @@ import { Class } from "../types";
 export function itemType<T extends object, I>(type: Class<I>) {
   return (target: T, propertyKey: string) => {
     const description = { typeInfo: type };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -22,7 +22,7 @@ export function itemType<T extends object, I>(type: Class<I>) {
 export function max<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { maxLength: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
 
@@ -34,6 +34,6 @@ export function max<T extends object>(value: number) {
 export function min<T extends object>(value: number) {
   return (target: T, propertyKey: string) => {
     const description = { minLength: value };
-    setFieldDescription(target, propertyKey, description);
+    annotateClassField(target, propertyKey, description);
   };
 }
