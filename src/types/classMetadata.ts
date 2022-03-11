@@ -9,7 +9,7 @@ export interface ClassMetadata {
   /**
    * Class fields object containing each field's metadata
    */
-  fields?: { [key: string]: FieldDescription };
+  fields?: { [propertyKey: string]: FieldDescription };
 
   /**
    * Class validation options, attached with `@klass.schemaOptions` decorator
